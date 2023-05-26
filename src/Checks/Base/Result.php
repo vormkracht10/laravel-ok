@@ -18,7 +18,7 @@ class Result
 
     public function __construct(
         public Status $status,
-        public string $notificationMessage = '',
+        public string $message = '',
     ) {
     }
 
@@ -29,46 +29,34 @@ class Result
         return $this;
     }
 
-    public function notificationMessage(string $notificationMessage): self
+    public function message(string $message): self
     {
-        $this->notificationMessage = $notificationMessage;
+        $this->message = $message;
 
         return $this;
     }
 
     public function ok(string $message = ''): self
     {
-        $this->notificationMessage = $message;
+        $this->message = $message;
 
-        $this->status = Status::ok();
-
-        return $this;
-    }
-
-    public function warning(string $message = ''): self
-    {
-        $this->notificationMessage = $message;
-
-        $this->status = Status::warning();
+        $this->status = Status::OK;
 
         return $this;
     }
 
     public function failed(string $message = ''): self
     {
-        $this->notificationMessage = $message;
+        $this->message = $message;
 
-        $this->status = Status::failed();
+        $this->status = Status::FAILED;
 
         return $this;
     }
 
-    /** @param  array<string, mixed>  $meta */
-    public function meta(array $meta): self
+    public function getMessage(): string
     {
-        $this->meta = $meta;
-
-        return $this;
+        return $this->message;
     }
 
     public function endedAt(CarbonInterface $carbon): self

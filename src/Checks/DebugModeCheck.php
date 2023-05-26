@@ -3,32 +3,36 @@
 namespace Vormkracht10\LaravelOK\Checks\Checks;
 
 use function config;
+use Vormkracht10\LaravelOK\Checks\Check;
 use Vormkracht10\LaravelOK\Checks\Result;
 
 class DebugModeCheck extends Check
 {
-    protected bool $expected = false;
+    protected bool $shouldBe = false;
 
-    public function expectedToBe(bool $bool): self
+    public function shouldBe(bool $bool): self
     {
-        $this->expected = $bool;
+        $this->shouldBe = $bool;
 
         return $this;
     }
 
+    protected function convertToText(bool $boolean): string
+    {
+        return $boolean ? 'enabled' : 'disabled';
+    }
+
     public function run(): Result
     {
-        $actual = config('app.debug');
+        $currentValue = config('app.debug');
 
         $result = Result::make();
 
-        return $this->expected === $actual
-            ? $result->ok()
-            : $result->failed("The debug mode was expected to be `{$this->convertToWord((bool) $this->expected)}`, but actually was `{$this->convertToWord((bool) $actual)}`");
-    }
+        $shouldBeText = $this->convertToText((bool) $this->shouldBe);
+        $currentText = $this->convertToText((bool) $currentValue);
 
-    protected function convertToWord(bool $boolean): string
-    {
-        return $boolean ? 'true' : 'false';
+        return $this->shouldBe === $currentValue
+            ? $result->ok()
+            : $result->failed("The debug mode should be {$shouldBeText}, but currently is {$currentText}");
     }
 }

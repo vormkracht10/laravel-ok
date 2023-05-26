@@ -16,9 +16,13 @@ abstract class Check
 
     protected ?string $name = null;
 
+    protected ?string $message = null;
+
     protected ?string $label = null;
 
     protected bool $shouldRun = true;
+
+    protected int $timesToFailWithoutNotification = 1;
 
     public function __construct()
     {
@@ -49,6 +53,18 @@ abstract class Check
         $baseName = class_basename(static::class);
 
         return Str::of($baseName)->beforeLast('Check');
+    }
+
+    public function message(string $message): self
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 
     public function shouldRun(): bool

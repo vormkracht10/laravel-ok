@@ -12,4 +12,9 @@ class OK
 
         return $this;
     }
+
+    public function configuredChecks()
+    {
+        return collect($this->checks);
+    }
 }
