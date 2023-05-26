@@ -74,6 +74,7 @@ abstract class Check
         }
 
         $date = Date::now();
+        dump($this->expression);
 
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }

@@ -26,7 +26,7 @@ class DebugModeCheck extends Check
     {
         $currentValue = config('app.debug');
 
-        $result = Result::make();
+        $result = Result::new();
 
         $shouldBeText = $this->convertToText((bool) $this->shouldBe);
         $currentText = $this->convertToText((bool) $currentValue);

@@ -11,7 +11,7 @@ class Result
 
     public ?CarbonInterface $ended_at;
 
-    public static function make(string $message = ''): self
+    public static function new(string $message = ''): self
     {
         return new self(Status::OK, $message);
     }

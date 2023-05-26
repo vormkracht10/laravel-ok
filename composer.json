@@ -25,7 +25,8 @@
         "laravel-notification-channels/discord": "^1.5",
         "laravel-notification-channels/telegram": "^4.0",
         "mtdowling/cron-expression": "^1.2",
-        "spatie/laravel-package-tools": "^1.14.0"
+        "spatie/laravel-package-tools": "^1.14.0",
+        "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

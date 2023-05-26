@@ -20,7 +20,7 @@ class EnvironmentCheck extends Check
     {
         $currentValue = app()->environment();
 
-        $result = Result::make();
+        $result = Result::new();
 
         return $this->shouldBe === $currentValue
             ? $result->ok()

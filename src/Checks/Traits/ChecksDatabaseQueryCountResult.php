@@ -17,7 +17,7 @@ trait ChecksDatabaseQueryCountResult
     {
         $currentCount = $this->queryCount();
 
-        $result = Result::make();
+        $result = Result::new();
 
         return $this->checkExpectedCount($currentCount)
             ? $result->ok()
