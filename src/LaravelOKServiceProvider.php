@@ -13,7 +13,7 @@ class LaravelOKServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-ok')
             ->hasConfigFile()
-            ->hasMigration('create_laravel_ok_table')
+            // ->hasMigration('create_laravel_ok_table')
             ->hasCommands(
                 RunChecksCommand::class,
             );

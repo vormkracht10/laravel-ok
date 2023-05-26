@@ -5,9 +5,9 @@ namespace Vormkracht10\LaravelOK\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Vormkracht10\LaravelOK\LaravelOK
+ * @see \Vormkracht10\LaravelOK\OK
  */
-class LaravelOK extends Facade
+class OK extends Facade
 {
     protected static function getFacadeAccessor()
     {
