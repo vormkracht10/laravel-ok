@@ -8,6 +8,7 @@ use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Enums\Status;
 use Vormkracht10\LaravelOK\Events\CheckEnded;
+use Vormkracht10\LaravelOK\Events\CheckFailed;
 use Vormkracht10\LaravelOK\Events\CheckStarted;
 use Vormkracht10\LaravelOK\Exceptions\CheckDidNotComplete;
 use Vormkracht10\LaravelOK\OK;
@@ -26,7 +27,7 @@ class RunChecksCommand extends Command
 
         $this->runChecks();
 
-        $this->comment('All done');
+        $this->info('All done');
 
         return self::SUCCESS;
     }
@@ -50,7 +51,8 @@ class RunChecksCommand extends Command
         event(new CheckStarted($check));
 
         try {
-            $this->line("Running check: {$check->getName()}...");
+            $this->output->write("<comment>Running check: {$check->getName()}...</comment> ", false);
+
             $result = $check->run();
         } catch (Exception $exception) {
             $exception = CheckDidNotComplete::make($check, $exception);
@@ -67,6 +69,13 @@ class RunChecksCommand extends Command
 
         $this->outputResultToConsole($result, $exception ?? null);
 
+        if (
+            $result->status === Status::FAILED ||
+            $result->status === Status::CRASHED
+        ) {
+            event(new CheckFailed($check, $result));
+        }
+
         event(new CheckEnded($check, $result));
 
         return $result;
@@ -75,9 +84,9 @@ class RunChecksCommand extends Command
     protected function outputResultToConsole(Result $result, ?Exception $exception = null): void
     {
         match ($result->status) {
-            Status::OK => $this->info('Success'),
-            Status::FAILED => $this->error("{$result->status->value}: {$result->getMessage()}"),
-            Status::CRASHED => $this->error("{$result->status->value}: `{$exception?->getMessage()}`"),
+            Status::OK => $this->output->write('<info>✓ Passed</info>', true),
+            Status::FAILED => $this->output->write("<error>✗ Failed: {$result->getMessage()}</error>", true),
+            Status::CRASHED => $this->output->write("<error>- Crashed: `{$exception?->getMessage()}`</error>", true),
             default => null,
         };
     }

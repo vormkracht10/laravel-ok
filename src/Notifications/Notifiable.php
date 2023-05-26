@@ -10,22 +10,22 @@ class Notifiable
 
     public function routeNotificationForMail(): string|array
     {
-        return config('ok.notifications.mail.to');
+        return config('ok.notifications.via.mail.to');
     }
 
     public function routeNotificationForSlack(): string
     {
-        return config('ok.notifications.slack.webhook_url');
+        return config('ok.notifications.via.slack.webhook_url');
     }
 
     public function routeNotificationsForDiscord(): string
     {
-        return config('ok.notifications.discord.channel');
+        return config('ok.notifications.via.discord.channel');
     }
 
     public function routeNotificationsForTelegram(): string
     {
-        return config('ok.notifications.telegram.channel');
+        return config('ok.notifications.via.telegram.channel');
     }
 
     public function getKey(): int

@@ -7,23 +7,23 @@ return [
     'notifications' => [
         'enabled' => env('LARAVEL_OK_NOTIFICATIONS_ENABLED', true),
 
-        'notification' => CheckFailedNotification::class,
+        'failed_notification' => CheckFailedNotification::class,
+
         'notifiable' => Notifiable::class,
 
-        'mail' => [
-
-        ],
-
-        'slack' => [
-
-        ],
-
-        'discord' => [
-
-        ],
-
-        'telegram' => [
-
+        'via' => [
+            // 'discord' => [
+            //     'channel' => 1111586288131391548,
+            // ],
+            'mail' => [
+                'to' => 'mark@vormkracht10.nl',
+            ],
+            // 'slack' => [
+            //     'webhook_url' => 'webhook-url',
+            // ],
+            // 'telegram' => [
+            //     'channel' => 1234567890,
+            // ],
         ],
     ],
 ];

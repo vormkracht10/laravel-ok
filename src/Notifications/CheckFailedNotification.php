@@ -7,45 +7,53 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Arr;
 use NotificationChannels\Discord\DiscordMessage;
 use NotificationChannels\Telegram\TelegramMessage;
+use Vormkracht10\LaravelOK\Checks\Base\Check;
+use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class CheckFailedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct()
+    public function __construct(protected Check $check, protected Result $result)
     {
     }
 
     public function via(): array
     {
-        return [
-            // 'discord',
-            'mail',
-            // 'slack',
-            // 'telegram',
-        ];
+        return array_keys(config('ok.notifications.via'));
+    }
+
+    public function shouldSend(Notifiable $notifiable, string $channel): bool
+    {
+        if (! config('ok.notifications.enabled')) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getTitle(): string
     {
-        return '';
+        $emoji = Arr::random([
+            '🔥', '🧯', '‼️', '⁉️', '🔴', '📣', '😅', '🥵',
+        ]);
+
+        return $emoji.' '.$this->result->message;
     }
 
     public function getMessage(): string
     {
-        $emoji = array_random([
-            '🔥', '🧯', '‼️', '⁉️', '🔴', '📣', '😅', '🥵',
-        ]);
-
-        return $emoji.' mail has bounced';
+        return $this->result->message;
     }
 
     public function toMail(): MailMessage
     {
         return (new MailMessage)
-            ->greeting($this->getTitle())
+            ->subject($this->getTitle())
+            ->greeting($this->getMessage())
             ->line($this->getMessage());
     }
 
