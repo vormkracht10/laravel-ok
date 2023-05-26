@@ -13,6 +13,10 @@
             "name": "Mark van Eijk",
             "email": "mark@vormkracht10.nl",
             "role": "Developer"
+        }, {
+            "name": "Bas van Dinther",
+            "email": "bas@vormkracht10.nl",
+            "role": "Developer"
         }
     ],
     "require": {
