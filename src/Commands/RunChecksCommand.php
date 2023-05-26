@@ -4,7 +4,7 @@ namespace Vormkracht10\LaravelOK\Commands;
 
 use Illuminate\Console\Command;
 
-class RunChecks extends Command
+class RunChecksCommand extends Command
 {
     public $signature = 'ok:check';
 
