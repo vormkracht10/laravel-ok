@@ -1,6 +1,6 @@
 {
     "name": "vormkracht10/laravel-ok",
-    "description": "Is your Laravel app OK? Health checks made in production to ensure you can sleep well at night and be sure everything is still OK.",
+    "description": "Is your Laravel app OK? Health checks running in production to ensure you can sleep well at night and be sure everything is still OK.",
     "keywords": [
         "vormkracht10",
         "laravel",
