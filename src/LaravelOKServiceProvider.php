@@ -4,6 +4,7 @@ namespace Vormkracht10\LaravelOK;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
 
 class LaravelOKServiceProvider extends PackageServiceProvider
 {
