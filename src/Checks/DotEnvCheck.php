@@ -26,10 +26,12 @@ class DotEnvCheck extends Check
         );
 
         $missing = collect($this->required)
-            ->filter(fn ($variable) => ! $vars->has($variable));
+            ->filter(fn ($variable, $value) => is_int($value) ? ! $vars->has($variable) : $vars->get($value) != $variable);
 
-        dd($missing);
-
-        return $result->ok();
+        if ($missing->isNotEmpty()) {
+            return $result->failed('Missing required variables in .env file: '.$missing->implode(', '));
+        } else {
+            return $result->ok();
+        }
     }
 }

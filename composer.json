@@ -26,6 +26,7 @@
         "laravel-notification-channels/telegram": "^4.0",
         "mtdowling/cron-expression": "^1.2",
         "spatie/laravel-package-tools": "^1.14.0",
+        "symfony/dom-crawler": "^6.2",
         "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
