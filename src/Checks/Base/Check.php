@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Vormkracht10\LaravelOK\Checks\Base;
 
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;

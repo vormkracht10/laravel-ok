@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Vormkracht10\LaravelOK\Checks\Base;
 
 use Carbon\CarbonInterface;
 use Vormkracht10\LaravelOK\Enums\Status;

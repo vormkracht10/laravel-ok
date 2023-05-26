@@ -3,7 +3,7 @@
 namespace Vormkracht10\LaravelOK\Exceptions;
 
 use Exception;
-use Vormkracht10\LaravelOK\Checks\Check;
+use Vormkracht10\LaravelOK\Checks\Base\Check;
 
 class CheckDidNotComplete extends Exception
 {

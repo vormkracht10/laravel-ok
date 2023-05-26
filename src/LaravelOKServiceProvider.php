@@ -18,4 +18,10 @@ class LaravelOKServiceProvider extends PackageServiceProvider
                 RunChecksCommand::class,
             );
     }
+
+    public function packageRegistered(): void
+    {
+        $this->app->singleton(OK::class);
+        $this->app->alias(OK::class, 'ok');
+    }
 }

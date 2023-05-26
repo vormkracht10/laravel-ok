@@ -4,8 +4,8 @@ namespace Vormkracht10\LaravelOK\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Vormkracht10\LaravelOK\Checks\Check;
-use Vormkracht10\LaravelOK\Checks\Result;
+use Vormkracht10\LaravelOK\Checks\Base\Check;
+use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Enums\Status;
 use Vormkracht10\LaravelOK\Events\CheckEnded;
 use Vormkracht10\LaravelOK\Events\CheckStarted;
@@ -35,7 +35,9 @@ class RunChecksCommand extends Command
     {
         return app(OK::class)
             ->configuredChecks()
-            ->dd()
+            ->map(function (mixed $check) {
+                return is_string($check) ? app($check) : $check;
+            })
             ->map(function (Check $check): Result {
                 return $check->shouldRun()
                     ? $this->runCheck($check)
@@ -48,7 +50,6 @@ class RunChecksCommand extends Command
         event(new CheckStarted($check));
 
         try {
-            $this->line('');
             $this->line("Running check: {$check->getName()}...");
             $result = $check->run();
         } catch (Exception $exception) {
@@ -64,8 +65,6 @@ class RunChecksCommand extends Command
         $result->check($check)
             ->endedAt(now());
 
-        dump($this->thrownExceptions);
-
         $this->outputResultToConsole($result, $exception ?? null);
 
         event(new CheckEnded($check, $result));
@@ -77,8 +76,8 @@ class RunChecksCommand extends Command
     {
         match ($result->status) {
             Status::OK => $this->info('Success'),
-            Status::FAILED => $this->error("{$result->status}: {$result->getMessage()}"),
-            Status::CRASHED => $this->error("{$result->status}}: `{$exception?->getMessage()}`"),
+            Status::FAILED => $this->error("{$result->status->value}: {$result->getMessage()}"),
+            Status::CRASHED => $this->error("{$result->status->value}: `{$exception?->getMessage()}`"),
             default => null,
         };
     }

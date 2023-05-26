@@ -2,7 +2,7 @@
 
 namespace Vormkracht10\LaravelOK\Checks\Traits;
 
-use Vormkracht10\LaravelOK\Checks\Result;
+use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 trait ChecksDatabaseQueryCountResult
 {
@@ -13,7 +13,7 @@ trait ChecksDatabaseQueryCountResult
         return $this->expectedCount === $count;
     }
 
-    public function run()
+    public function run(): Result
     {
         $currentCount = $this->queryCount();
 
@@ -22,7 +22,7 @@ trait ChecksDatabaseQueryCountResult
         return $this->checkExpectedCount($currentCount)
             ? $result->ok()
             : $result->failed(
-                $this->message() ?: "The database query count should be {$this->expectedCount}, but currently is {$currentCount}"
+                $this->getMessage() ?: "The database query count should be {$this->expectedCount}, but currently is {$currentCount}"
             );
     }
 }

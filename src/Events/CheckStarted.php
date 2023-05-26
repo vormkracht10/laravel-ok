@@ -2,7 +2,7 @@
 
 namespace Vormkracht10\LaravelOK\Events;
 
-use Vormkracht10\LaravelOK\Checks\Check;
+use Vormkracht10\LaravelOK\Checks\Base\Check;
 
 class CheckStarted
 {
