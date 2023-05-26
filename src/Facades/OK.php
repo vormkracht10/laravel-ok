@@ -11,6 +11,6 @@ class LaravelOK extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Vormkracht10\LaravelOK\LaravelOK::class;
+        return \Vormkracht10\LaravelOK\OK::class;
     }
 }

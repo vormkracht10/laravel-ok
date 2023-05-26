@@ -4,14 +4,16 @@ namespace Vormkracht10\LaravelOK\Commands;
 
 use Illuminate\Console\Command;
 
-class LaravelOKCommand extends Command
+class RunChecks extends Command
 {
-    public $signature = 'laravel-ok';
+    public $signature = 'ok:check';
 
-    public $description = 'My command';
+    public $description = 'Runs all checks to be sure everything is OK';
 
     public function handle(): int
     {
+        $this->info('Running checks...');
+
         $this->comment('All done');
 
         return self::SUCCESS;
