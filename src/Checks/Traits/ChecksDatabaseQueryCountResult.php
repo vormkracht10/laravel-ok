@@ -6,11 +6,27 @@ use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 trait ChecksDatabaseQueryCountResult
 {
-    public int $expectedCount = 0;
+    public ?int $expectedCount = null;
+
+    public ?int $minCount = null;
+
+    public ?int $maxCount = null;
 
     public function checkExpectedCount(int $count)
     {
-        return $this->expectedCount === $count;
+        if (! is_null($this->expectedCount)) {
+            return $this->expectedCount === $count;
+        }
+
+        if (! is_null($this->minCount)) {
+            return $count >= $this->minCount;
+        }
+
+        if (! is_null($this->maxCount)) {
+            return $count <= $this->maxCount;
+        }
+
+        return false;
     }
 
     public function run(): Result

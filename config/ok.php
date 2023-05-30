@@ -13,11 +13,11 @@ return [
 
         'via' => [
             // 'discord' => [
-            //     'channel' => 1111586288131391548,
+            //     'channel' => 123456790,
             // ],
-            'mail' => [
-                'to' => 'mark@vormkracht10.nl',
-            ],
+            // 'mail' => [
+            //     'to' => 'hello@example.com',
+            // ],
             // 'slack' => [
             //     'webhook_url' => 'webhook-url',
             // ],
