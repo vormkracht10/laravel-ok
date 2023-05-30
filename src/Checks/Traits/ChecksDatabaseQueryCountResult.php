@@ -32,16 +32,22 @@ trait ChecksDatabaseQueryCountResult
     public function expectedCount(int $count)
     {
         $this->expectedCount = $count;
+
+        return $this;
     }
 
     public function minCount(int $count)
     {
         $this->minCount = $count;
+
+        return $this;
     }
 
     public function maxCount(int $count)
     {
         $this->maxCount = $count;
+
+        return $this;
     }
 
     public function run(): Result
