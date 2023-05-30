@@ -29,6 +29,21 @@ trait ChecksDatabaseQueryCountResult
         return false;
     }
 
+    public function expectedCount(int $count)
+    {
+        $this->expectedCount = $count;
+    }
+
+    public function minCount(int $count)
+    {
+        $this->minCount = $count;
+    }
+
+    public function maxCount(int $count)
+    {
+        $this->maxCount = $count;
+    }
+
     public function run(): Result
     {
         $currentCount = $this->queryCount();
