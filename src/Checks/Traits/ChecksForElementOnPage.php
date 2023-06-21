@@ -30,7 +30,7 @@ trait ChecksForElementOnPage
         return $this->checkExpectedElement($element)
             ? $result->ok()
             : $result->failed(
-                $this->getMessage() ?: "The element could not be found on the page"
+                $this->getMessage() ?: 'The element could not be found on the page'
             );
     }
 }
