@@ -74,7 +74,7 @@ class ChecksForElementOnPage extends Check
         }
 
         if ($this->attribute) {
-            $element = $crawler->filterXPath("//{$element}");
+            $element = $crawler->filterXPath("//{$element}[@{$this->attribute}]");
         }
 
         if (! $element) {
@@ -95,6 +95,7 @@ class ChecksForElementOnPage extends Check
 
         // Check if attribute has text
         if (! is_null($this->attribute) && ! is_null($this->text)) {
+
             dd($element);
             foreach ($element as $e) {
                 dd($e, $e->attr($this->attribute), $this->text);
