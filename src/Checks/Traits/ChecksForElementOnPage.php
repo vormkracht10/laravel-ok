@@ -62,8 +62,8 @@ class ChecksForElementOnPage extends Check
 
         $elementIsPresent = $crawler->filter($element)->count() > 0;
 
-        if (! is_null($this->text)) {
-            $elementIsPresent = $crawler->filter($element)->text() === $this->text;
+        if (! is_null($this->text) && $elementIsPresent) {
+            $elementIsPresent = $crawler->filter($element)->text() == $this->text;
         }
 
         if (! $elementIsPresent) {
@@ -102,9 +102,7 @@ class ChecksForElementOnPage extends Check
 
         return $this->checkExpectedElement($this->getUrlResponse(), $this->element)
             ? $result->ok()
-            : $result->failed(
-                $this->getMessage() ?: "The element '{$this->element}' could not be found on the page '{$this->url}'"
-            );
+            : $result->failed("The element '{$this->element}' could not be found on the page '{$this->url}'");
     }
 
     protected function failedResult(): Result
