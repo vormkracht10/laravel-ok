@@ -72,14 +72,11 @@ class ChecksForElementOnPage extends Check
 
         if (! is_null($this->text)) {
             foreach ($element as $e) {
-                dump($e, $e->textContent, $this->text, $e->textContent == $this->text);
                 if ($e->textContent == $this->text) {
                     return true;
                 }
             }
         }
-
-        exit;
 
         return false;
     }
