@@ -68,39 +68,37 @@ class ChecksForElementOnPage extends Check
     public function checkExpectedElement(Response $response, string $element)
     {
         $crawler = new Crawler($response->body());
-
-        if (! $this->attribute) {
-            $element = $crawler->filter($element);
-        }
-
+    
         if ($this->attribute) {
             $element = $crawler->filterXPath("//{$element}[@{$this->attribute}]");
+        } else {
+            $element = $crawler->filter($element);
         }
-
-        if (! $element) {
+    
+        if (!$element) {
             return false;
         }
-
+    
         if (is_null($this->text) && is_null($this->attribute)) {
             return true;
         }
-
-        if (! is_null($this->text)) {
+    
+        if (!is_null($this->text)) {
             foreach ($element as $e) {
                 if ($e->textContent == $this->text) {
                     return true;
                 }
             }
         }
-
-        if (! is_null($this->attribute) && ! is_null($this->text)) {
+    
+        if (!is_null($this->attribute) && !is_null($this->text)) {
             foreach ($element as $e) {
                 if (str_contains($e->textContent, $this->text)) {
                     return true;
                 }
             }
         }
-
+    
         return false;
     }
 
