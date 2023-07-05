@@ -5,13 +5,16 @@ namespace Vormkracht10\LaravelOK\Checks\Traits;
 use Exception;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
-use Spatie\Health\Exceptions\InvalidCheck;
 use Symfony\Component\DomCrawler\Crawler;
+use Spatie\Health\Exceptions\InvalidCheck;
+use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
-trait ChecksForElementOnPage
+class ChecksForElementOnPage extends Check
 {
     protected ?string $url = null;
+    
+    protected ?string $element = null;
 
     /** @var array<string, string> */
     protected array $headers = [];
