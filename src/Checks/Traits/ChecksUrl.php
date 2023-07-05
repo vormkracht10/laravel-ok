@@ -3,9 +3,9 @@
 namespace Vormkracht10\LaravelOK\Checks\Traits;
 
 use Exception;
-use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Illuminate\Support\Facades\Http;
 use Spatie\Health\Exceptions\InvalidCheck;
 
 class CheckUrl extends Check
