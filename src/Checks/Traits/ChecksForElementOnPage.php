@@ -79,7 +79,7 @@ class ChecksForElementOnPage extends Check
             }
         }
 
-        die;
+        exit;
 
         return false;
     }
