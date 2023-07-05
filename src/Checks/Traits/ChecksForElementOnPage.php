@@ -12,11 +12,17 @@ use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class ChecksForElementOnPage extends Check
 {
+    protected ?string $failureMessage = null;
+
     protected ?string $url = null;
 
     protected ?string $element = null;
 
     protected ?string $text = null;
+
+    protected int $timeout = 1;
+
+    protected int $retryTimes = 1;
 
     /** @var array<string, string> */
     protected array $headers = [];
@@ -66,18 +72,24 @@ class ChecksForElementOnPage extends Check
     /** @throws InvalidCheck */
     public function getUrlResponse(): Response
     {
+        if (is_null($this->url)) {
+            throw InvalidCheck::urlNotSet();
+        }
+
         try {
-            $response = Http::withHeaders($this->headers)
+            $request = Http::timeout($this->timeout)
+                ->withHeaders($this->headers)
+                ->retry($this->retryTimes)
                 ->send('GET', $this->url);
 
-            if (! $response->ok()) {
-                throw new Exception("The url '{$this->url}' did not return a 200 response");
+            if (! $request->successful()) {
+                return $this->failedResult();
             }
         } catch (Exception $exception) {
             throw $exception;
         }
 
-        return $response;
+        return $request;
     }
 
     public function run(): Result
@@ -89,5 +101,13 @@ class ChecksForElementOnPage extends Check
             : $result->failed(
                 $this->getMessage() ?: "The element '{$this->element}' could not be found on the page '{$this->url}'"
             );
+    }
+
+    protected function failedResult(): Result
+    {
+        return Result::new()
+            ->failed()
+            ->shortSummary('Unreachable')
+            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
     }
 }
