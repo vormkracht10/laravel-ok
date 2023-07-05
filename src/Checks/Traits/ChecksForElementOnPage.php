@@ -90,7 +90,7 @@ class ChecksForElementOnPage extends Check
         // Check if attribute has text
         if (! is_null($this->attribute) && ! is_null($this->text)) {
             foreach ($element as $e) {
-                dd($e->getAttribute($this->attribute));
+                dd($e, $e->getAttribute($this->attribute));
                 if ($e->attr($this->attribute) == $this->text) {
                     return true;
                 }
