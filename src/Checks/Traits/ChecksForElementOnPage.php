@@ -93,6 +93,14 @@ class ChecksForElementOnPage extends Check
             }
         }
 
+        if (! is_null($this->attribute) && ! is_null($this->text)) {
+            foreach ($element as $e) {
+                if (str_contains($e->textContent, $this->text)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
