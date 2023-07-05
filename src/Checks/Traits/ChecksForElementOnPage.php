@@ -60,7 +60,7 @@ class ChecksForElementOnPage extends Check
     {
         $crawler = new Crawler($response->body());
 
-        $element = $crawler->filterXPath($element)->count() > 0;
+        $element = $crawler->filter($element);
 
         if (! $element) {
             return false;
@@ -71,8 +71,8 @@ class ChecksForElementOnPage extends Check
         }
 
         if (! is_null($this->text)) {
-            foreach ($crawler->filter($element) as $element) {
-                if (! is_null($this->text) && $element->textContent == $this->text) {
+            foreach ($element as $e) {
+                if (! is_null($this->text) && $e->textContent == $this->text) {
                     return true;
                 }
             }
