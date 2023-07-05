@@ -62,6 +62,10 @@ class ChecksForElementOnPage extends Check
 
         $elementIsPresent = $crawler->filter($element)->count() > 0;
 
+        if (! is_null($this->text)) {
+            $elementIsPresent = $crawler->filter($element)->text() === $this->text;
+        }
+
         if (! $elementIsPresent) {
             return false;
         }
