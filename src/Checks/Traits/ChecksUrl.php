@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Health\Checks\Checks;
+namespace Vormkracht10\LaravelOK\Checks\Traits;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
