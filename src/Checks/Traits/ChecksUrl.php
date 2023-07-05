@@ -8,7 +8,7 @@ use Spatie\Health\Checks\Result;
 use Illuminate\Support\Facades\Http;
 use Spatie\Health\Exceptions\InvalidCheck;
 
-class CheckUrl extends Check
+class ChecksUrl extends Check
 {
     protected ?string $url = null;
 
