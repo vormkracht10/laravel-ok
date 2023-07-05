@@ -18,6 +18,8 @@ class ChecksForElementOnPage extends Check
 
     protected ?string $element = null;
 
+    protected ?string $attribute = null;
+
     protected ?string $text = null;
 
     protected int $timeout = 1;
@@ -48,6 +50,13 @@ class ChecksForElementOnPage extends Check
         return $this;
     }
 
+    public function attribute(string $attribute): self
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
+
     /** @param  array<string, string>  $headers */
     public function headers(array $headers = []): self
     {
@@ -66,13 +75,22 @@ class ChecksForElementOnPage extends Check
             return false;
         }
 
-        if (is_null($this->text)) {
+        if (is_null($this->text) && is_null($this->attribute)) {
             return true;
         }
 
-        if (! is_null($this->text)) {
+        if (! is_null($this->text) && is_null($this->attribute)) {
             foreach ($element as $e) {
                 if ($e->textContent == $this->text) {
+                    return true;
+                }
+            }
+        }
+
+        // Check if attribute has text
+        if (! is_null($this->attribute) && ! is_null($this->text)) {
+            foreach ($element as $e) {
+                if ($e->attr($this->attribute) == $this->text) {
                     return true;
                 }
             }
