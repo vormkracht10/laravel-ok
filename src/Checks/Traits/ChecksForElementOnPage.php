@@ -16,12 +16,28 @@ class ChecksForElementOnPage extends Check
     
     protected ?string $element = null;
 
+    protected ?string $text = null;
+
     /** @var array<string, string> */
     protected array $headers = [];
 
     public function url(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function element(string $element): self
+    {
+        $this->element = $element;
+
+        return $this;
+    }
+
+    public function text(string $text): self
+    {
+        $this->text = $text;
 
         return $this;
     }
