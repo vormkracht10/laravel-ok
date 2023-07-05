@@ -60,17 +60,25 @@ class ChecksForElementOnPage extends Check
     {
         $crawler = new Crawler($response->body());
 
-        $elementIsPresent = $crawler->filter($element)->count() > 0;
+        $element = $crawler->filterXPath($element)->count() > 0;
 
-        if (! is_null($this->text) && $elementIsPresent) {
-            $elementIsPresent = $crawler->filter($element)->text() == $this->text;
-        }
-
-        if (! $elementIsPresent) {
+        if (! $element) {
             return false;
         }
 
-        return true;
+        if (is_null($this->text)) {
+            return true;
+        }
+
+        if (! is_null($this->text)) {
+            foreach ($crawler->filter($element) as $element) {
+                if (! is_null($this->text) && $element->textContent == $this->text) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /** @throws InvalidCheck */
