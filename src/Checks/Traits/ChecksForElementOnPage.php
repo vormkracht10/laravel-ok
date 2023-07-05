@@ -5,8 +5,8 @@ namespace Vormkracht10\LaravelOK\Checks\Traits;
 use Exception;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
-use Symfony\Component\DomCrawler\Crawler;
 use Spatie\Health\Exceptions\InvalidCheck;
+use Symfony\Component\DomCrawler\Crawler;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 trait ChecksForElementOnPage
