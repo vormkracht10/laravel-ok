@@ -71,10 +71,10 @@ class ChecksForElementOnPage extends Check
                 ->send('GET', $this->url);
 
             if (! $response->ok()) {
-                throw InvalidCheck::couldNotSendRequest($response);
+                throw new Exception("The url '{$this->url}' did not return a 200 response");
             }
         } catch (Exception $exception) {
-            throw InvalidCheck::couldNotSendRequest($exception);
+            throw $exception;
         }
 
         return $response;
