@@ -72,7 +72,7 @@ class ChecksForElementOnPage extends Check
         if (! $this->attribute) {
             $element = $crawler->filter($element);
         }
-        
+
         if ($this->attribute) {
             $element = $crawler->filterXPath("//{$element}")->getNode(0);
         }
