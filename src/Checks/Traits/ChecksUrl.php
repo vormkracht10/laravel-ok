@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Checks;
+namespace Vormkracht10\LaravelOK\Checks\Traits;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
