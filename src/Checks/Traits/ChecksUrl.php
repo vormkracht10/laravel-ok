@@ -75,15 +75,15 @@ class ChecksUrl extends Check
         }
 
         // try {
-            $request = Http::timeout($this->timeout)
-                ->withHeaders($this->headers)
-                ->retry($this->retryTimes)
-                ->send($this->method, $this->url);
+        $request = Http::timeout($this->timeout)
+            ->withHeaders($this->headers)
+            ->retry($this->retryTimes)
+            ->send($this->method, $this->url);
 
-                var_dump($request->successful());
-            if (! $request->successful()) {
-                // return $this->failedResult();
-            }
+        var_dump($request->successful());
+        if (! $request->successful()) {
+            // return $this->failedResult();
+        }
         // } catch (Exception) {
         //     return $this->failedResult();
         // }
