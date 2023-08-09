@@ -74,18 +74,19 @@ class ChecksUrl extends Check
             throw new Exception('URL not set');
         }
 
-        try {
+        // try {
             $request = Http::timeout($this->timeout)
                 ->withHeaders($this->headers)
                 ->retry($this->retryTimes)
                 ->send($this->method, $this->url);
 
+                var_dump($request->successful());
             if (! $request->successful()) {
-                return $this->failedResult();
+                // return $this->failedResult();
             }
-        } catch (Exception) {
-            return $this->failedResult();
-        }
+        // } catch (Exception) {
+        //     return $this->failedResult();
+        // }
 
         return Result::new()
             ->ok();
