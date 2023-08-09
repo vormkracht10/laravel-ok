@@ -71,7 +71,7 @@ class ChecksUrl extends Check
     public function run(): Result
     {
         if (is_null($this->url)) {
-            throw Exception('URL not set');
+            throw new Exception('URL not set');
         }
 
         try {
