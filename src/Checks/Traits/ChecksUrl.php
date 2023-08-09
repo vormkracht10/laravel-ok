@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Exceptions\InvalidCheck;
 
 class ChecksUrl extends Check
 {
@@ -72,7 +71,7 @@ class ChecksUrl extends Check
     public function run(): Result
     {
         if (is_null($this->url)) {
-            throw InvalidCheck::urlNotSet();
+            throw Exception('URL not set');
         }
 
         try {
