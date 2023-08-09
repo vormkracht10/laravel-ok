@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\Health\Checks\Checks;
+namespace Vormkracht10\LaravelOK\Checks\Checks;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Spatie\Health\Checks\Check;
-use Spatie\Health\Checks\Result;
-use Spatie\Health\Exceptions\InvalidCheck;
+use Vormkracht10\LaravelOK\Checks\Check;
+use Vormkracht10\LaravelOK\Checks\Result;
+use Vormkracht10\LaravelOK\Exceptions\InvalidCheck;
 
-class CheckUrl extends Check
+class ChecksUrl extends Check
 {
     protected ?string $url = null;
 
