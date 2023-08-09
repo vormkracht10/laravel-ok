@@ -88,15 +88,13 @@ class ChecksUrl extends Check
         }
 
         return Result::new()
-            ->ok()
-            ->shortSummary('Reachable');
+            ->ok();
     }
 
     protected function failedResult(): Result
     {
         return Result::new()
             ->failed()
-            ->shortSummary('Unreachable')
-            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
+            ->message($this->failureMessage ?? "Pinging {$this->getName()} failed.");
     }
 }
