@@ -28,11 +28,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
     {
-        if (! config('ok.notifications.enabled')) {
-            return false;
-        }
-
-        return true;
+        return config('ok.notifications.enabled', false);
     }
 
     public function getTitle(): string
