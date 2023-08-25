@@ -14,15 +14,11 @@ abstract class Check
 
     /**
      * The view name used for mail notifications.
-     *
-     * @var string
      */
     public string $view = 'notifications::email';
 
     /**
      * The data passed to the view for mail notifications.
-     *
-     * @var array
      */
     public array $data = [];
 

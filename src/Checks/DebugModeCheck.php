@@ -2,9 +2,10 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use function config;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
+
+use function config;
 
 class DebugModeCheck extends Check
 {
