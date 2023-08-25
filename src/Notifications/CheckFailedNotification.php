@@ -37,12 +37,12 @@ class CheckFailedNotification extends Notification implements ShouldQueue
             '🔥', '🧯', '‼️', '⁉️', '🔴', '📣', '😅', '🥵',
         ]);
 
-        return $emoji.' '.$this->result->message;
+        return $emoji.' '.$this->result->getMessage();
     }
 
     public function getMessage(): string
     {
-        return $this->result->message;
+        return $this->result->getMessage();
     }
 
     public function toMail(): MailMessage
