@@ -12,7 +12,7 @@ final class NpmAuditCheck extends Check
 
     public function run(): Result
     {
-        $data = $this->data()['vulnerabilities'];
+        $data = $this->data()['vulnerabilities'] ?? [];
 
         if (! ($count = count($data)) > 0) {
             return Result::new()
