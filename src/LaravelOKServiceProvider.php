@@ -20,6 +20,7 @@ class LaravelOKServiceProvider extends PackageServiceProvider
             ->hasCommands(
                 RunChecksCommand::class,
             )
+            ->hasViews('ok')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
@@ -34,6 +35,6 @@ class LaravelOKServiceProvider extends PackageServiceProvider
         $this->app->singleton(OK::class);
         $this->app->alias(OK::class, 'ok');
 
-        $this->app->events->listen(CheckFailed::class, SendCheckFailedNotification::class);
+        $this->app['events']->listen(CheckFailed::class, SendCheckFailedNotification::class);
     }
 }
