@@ -49,8 +49,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject($this->getTitle())
-            ->greeting($this->getMessage())
-            ->line($this->getMessage());
+            ->markdown($this->check->view, $this->check->data);
     }
 
     public function toDiscord(): DiscordMessage
