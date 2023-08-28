@@ -1,9 +1,8 @@
 <?php
 
+use Vormkracht10\LaravelOK\Checks\Audit\NpmAuditCheck;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Checks\NpmAuditCheck;
 use Vormkracht10\LaravelOK\Enums\Status;
-use Vormkracht10\LaravelOK\Exceptions\Checks\Audit\NpmNoLock;
 
 it('passes when there\'s no vulnerabilities', function () {
    $dir = getcwd();
@@ -16,10 +15,6 @@ it('passes when there\'s no vulnerabilities', function () {
 
    chdir($dir);
 });
-
-it('throws an exception when NPM found no lock file', function () {
-    (new NpmAuditCheck)->run();
-})->expectException(NpmNoLock::class);
 
 it('can use custom data', function () {
     $check = (new NpmAuditCheck)

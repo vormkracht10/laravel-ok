@@ -13,9 +13,9 @@ abstract class Check
     use ManagesFrequencies;
 
     /**
-     * The view name used for mail notifications.
+     * The view name used for mail notifications if any.
      */
-    public string $view = 'notifications::email';
+    public string $view;
 
     /**
      * The data passed to the view for mail notifications.

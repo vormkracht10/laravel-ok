@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Vormkracht10\LaravelOK\Checks\Audit\ComposerAuditCheck;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Checks\ComposerAuditCheck;
 use Vormkracht10\LaravelOK\Enums\Status;
 
 it('can audit composer packages', function () {
