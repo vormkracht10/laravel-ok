@@ -10,9 +10,11 @@ final class ComposerAuditCheck extends Check
 {
     public string $view = 'ok::audit-check.composer-audit';
 
+    protected array $with;
+
     public function run(): Result
     {
-        $data = $this->data()['advisories'];
+        $data = $this->with['advisories'] ?? $this->data()['advisories'];
 
         if (! ($count = count($data)) > 0) {
             return Result::new()
@@ -23,6 +25,13 @@ final class ComposerAuditCheck extends Check
 
         return Result::new()
             ->failed("Found $count vulnerabilities for your dependencies in Composer.");
+    }
+
+    public function with(array $data): self
+    {
+        $this->with = $data;
+
+        return $this;
     }
 
     private function data(): array
