@@ -65,8 +65,18 @@ abstract class AuditCheck extends Check
 
     protected function data()
     {
-        return $this->with ?? json_decode(
-            Process::run($this->getFullCommand())->output(),
+        if (isset($this->with)) {
+            return $this->with;
+        }
+
+        $process = Process::run($this->getFullCommand());
+
+        if (! $process->exitCode() == 0) {
+            throw new Exception($process->errorOutput());
+        }
+
+        return json_decode(
+            $process->output(),
             true,
         );
     }
