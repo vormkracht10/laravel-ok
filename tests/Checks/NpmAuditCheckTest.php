@@ -8,13 +8,7 @@ use Vormkracht10\LaravelOK\Enums\Status;
 it('passes when there\'s no vulnerabilities', function () {
     $dir = getcwd();
 
-    $package = __DIR__.'/resources/no-vulnerabilities-npm';
-
-    if (isWindows()) {
-        $package = str_replace('/', '\\', $package);
-    }
-
-    chdir($package);
+    chdir(__DIR__.'/resources/no-vulnerabilities-npm');
 
     expect((new NpmAuditCheck)->run())
         ->toBeInstanceOf(Result::class)
@@ -38,13 +32,7 @@ it('can use custom data', function () {
 it('fails when dependencies have vulnerabilities', function () {
     $dir = getcwd();
 
-    $package = __DIR__.'/resources/vulnerabilities-npm';
-
-    if (isWindows()) {
-        $package = str_replace('/', '\\', $package);
-    }
-
-    chdir($package);
+    chdir(__DIR__.'/resources/vulnerabilities-npm');
 
     $result = (new NpmAuditCheck)->run();
 
@@ -57,6 +45,8 @@ it('fails when dependencies have vulnerabilities', function () {
 });
 
 it('has access to npm', function () {
-    expect(Process::run('npm -v')->successful())
-        ->toBeTrue();
+    expect(Process::run('npm -v'))
+        ->output()->not->toBeEmpty()
+        ->exitCode()->toBe(0)
+        ->successful()->toBeTrue();
 });
