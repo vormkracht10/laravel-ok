@@ -72,7 +72,7 @@ abstract class AuditCheck extends Check
         $process = Process::run($this->getFullCommand());
 
         if (empty(json_decode($process->output(), true))) {
-            dd($process->errorOutput());
+            dd($process->output());
         }
 
         return json_decode(
