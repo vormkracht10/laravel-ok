@@ -21,19 +21,40 @@ abstract class AuditCheck extends Check
         return $this->command;
     }
 
-    protected function getFullCommand(): string
+    private function isWindows(): bool
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
+    }
+
+    protected function getPath(): string
     {
         $include = config('ok.checks.audit.path', []);
 
-        $PATH = 'PATH=$PATH:';
+        if ($this->isWindows()) {
+            $PATH = 'set PATH=%PATH%;';
 
-        foreach ($include as $bin) {
-            $PATH .= "$bin:";
+            foreach ($include as $bin) {
+                $PATH .= "$bin;";
+            }
+
+            return $PATH;
+        } else {
+            $PATH = 'PATH=$PATH:';
+
+            foreach ($include as $bin) {
+                $PATH .= "$bin:";
+            }
+
+            $PATH = rtrim($PATH, ':');
         }
 
-        $PATH = rtrim($PATH, ':');
+        return $PATH;
+    }
 
-        return "$PATH {$this->getCommand()}";
+    protected function getFullCommand(): string
+    {
+        echo $this->getPath();
+        return "{$this->getPath()} {$this->getCommand()}";
     }
 
     public function with(array $data): static
