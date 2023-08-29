@@ -57,6 +57,8 @@ it('fails when dependencies have vulnerabilities', function () {
 });
 
 it('has access to npm', function () {
-    expect(Process::run('npm -v')->successful())
-        ->toBeTrue();
+    expect(Process::run('npm -v'))
+        ->output()->not->toBeEmpty()
+        ->exitCode()->toBe(0)
+        ->successful()->toBeTrue();
 });
