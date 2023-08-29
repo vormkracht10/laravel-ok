@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Process;
 use Vormkracht10\LaravelOK\Checks\Audit\NpmAuditCheck;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Enums\Status;
@@ -41,4 +42,9 @@ it('fails when dependencies have vulnerabilities', function () {
         ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM.');
 
     chdir($dir);
+});
+
+it('has access to npm', function () {
+    expect(Process::run('npm -v')->successful())
+        ->toBeTrue();
 });

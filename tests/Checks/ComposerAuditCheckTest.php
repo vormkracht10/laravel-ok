@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Process;
 use Vormkracht10\LaravelOK\Checks\Audit\ComposerAuditCheck;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Enums\Status;
@@ -37,4 +38,9 @@ it('fails when dependencies have vulnerabilities', function () {
     expect($result)
         ->getMessage()->toBe('Found 1 vulnerabilities for your dependencies in Composer.')
         ->status->toBe(Status::FAILED);
+});
+
+it('has access to composer', function () {
+    expect(Process::run('composer --version')->successful())
+        ->toBeTrue();
 });

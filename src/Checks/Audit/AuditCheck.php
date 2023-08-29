@@ -53,7 +53,6 @@ abstract class AuditCheck extends Check
 
     protected function getFullCommand(): string
     {
-        echo $this->getPath();
         return "{$this->getPath()} {$this->getCommand()}";
     }
 
