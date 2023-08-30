@@ -18,12 +18,12 @@ class Notifiable
         return config('ok.notifications.via.slack.webhook_url');
     }
 
-    public function routeNotificationsForDiscord(): string
+    public function routeNotificationForDiscord(): string
     {
         return config('ok.notifications.via.discord.channel');
     }
 
-    public function routeNotificationsForTelegram(): string
+    public function routeNotificationForTelegram(): string
     {
         return config('ok.notifications.via.telegram.channel');
     }
