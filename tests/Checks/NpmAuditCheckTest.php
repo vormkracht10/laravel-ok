@@ -15,7 +15,7 @@ it('passes when there\'s no vulnerabilities', function () {
         ->status->toBe(Status::OK);
 
     chdir($dir);
-});
+})->skipOnWindows();
 
 it('can use custom data', function () {
     $check = (new NpmAuditCheck)
@@ -42,11 +42,11 @@ it('fails when dependencies have vulnerabilities', function () {
         ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM.');
 
     chdir($dir);
-});
+})->skipOnWindows();
 
 it('has access to npm', function () {
     expect(Process::run('npm -v'))
         ->output()->not->toBeEmpty()
         ->exitCode()->toBe(0)
         ->successful()->toBeTrue();
-});
+})->skipOnWindows();

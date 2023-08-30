@@ -10,7 +10,7 @@ it('can audit composer packages', function () {
     $result = (new ComposerAuditCheck)->run();
 
     expect($result)->toBeInstanceOf(Result::class);
-});
+})->skipOnWindows();
 
 it('can use custom data', function () {
     $result = (new ComposerAuditCheck)
@@ -43,4 +43,4 @@ it('fails when dependencies have vulnerabilities', function () {
 it('has access to composer', function () {
     expect(Process::run('composer --version')->successful())
         ->toBeTrue();
-});
+})->skipOnWindows();
