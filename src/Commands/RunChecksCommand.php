@@ -81,7 +81,7 @@ class RunChecksCommand extends Command
         return $result;
     }
 
-    protected function outputResultToConsole(Result $result, ?Exception $exception = null): void
+    protected function outputResultToConsole(Result $result, Exception $exception = null): void
     {
         match ($result->status) {
             Status::OK => $this->output->write('<info>✓ Passed</info>', true),

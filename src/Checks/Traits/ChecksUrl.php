@@ -4,7 +4,6 @@ namespace Vormkracht10\LaravelOK\Checks\Traits;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Spatie\Health\Exceptions\InvalidCheck;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
@@ -72,32 +71,31 @@ class ChecksUrl extends Check
     public function run(): Result
     {
         if (is_null($this->url)) {
-            throw InvalidCheck::urlNotSet();
+            throw new Exception('URL not set');
         }
 
-        try {
-            $request = Http::timeout($this->timeout)
-                ->withHeaders($this->headers)
-                ->retry($this->retryTimes)
-                ->send($this->method, $this->url);
+        // try {
+        $request = Http::timeout($this->timeout)
+            ->withHeaders($this->headers)
+            ->retry($this->retryTimes)
+            ->send($this->method, $this->url);
 
-            if (! $request->successful()) {
-                return $this->failedResult();
-            }
-        } catch (Exception) {
-            return $this->failedResult();
+        var_dump($request->successful());
+        if (! $request->successful()) {
+            // return $this->failedResult();
         }
+        // } catch (Exception) {
+        //     return $this->failedResult();
+        // }
 
         return Result::new()
-            ->ok()
-            ->shortSummary('Reachable');
+            ->ok();
     }
 
     protected function failedResult(): Result
     {
         return Result::new()
             ->failed()
-            ->shortSummary('Unreachable')
-            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
+            ->message($this->failureMessage ?? "Pinging {$this->getName()} failed.");
     }
 }
