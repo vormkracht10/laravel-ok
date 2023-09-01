@@ -5,8 +5,8 @@ namespace Vormkracht10\LaravelOK\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Slack\SlackMessage;
 use Illuminate\Support\Arr;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
@@ -85,7 +85,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
     public function toSlack(): SlackMessage
     {
         return (new SlackMessage)
-            ->text($this->getMessage());
+            ->content($this->getMessage());
     }
 
     public function toTelegram(): TelegramMessage

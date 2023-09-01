@@ -19,7 +19,7 @@ return [
             //                 'to' => 'text@example.com',
             //             ],
             //             'slack' => [
-            //                 'webhook_url' => 'webhook-url',
+            //                 'webhook' => 'webhook-url',
             //             ],
             //             'telegram' => [
             //                 'channel' => 1234567890,
