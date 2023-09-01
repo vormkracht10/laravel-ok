@@ -15,7 +15,7 @@ class Notifiable
 
     public function routeNotificationForSlack(): string
     {
-        return config('ok.notifications.via.slack.webhook_url');
+        return config('ok.notifications.via.slack.channel');
     }
 
     public function routeNotificationForDiscord(): string

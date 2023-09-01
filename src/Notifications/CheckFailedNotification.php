@@ -5,10 +5,12 @@ namespace Vormkracht10\LaravelOK\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Slack\SlackMessage;
 use Illuminate\Support\Arr;
+use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
+use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
@@ -21,9 +23,22 @@ class CheckFailedNotification extends Notification implements ShouldQueue
     {
     }
 
+    public function getDriver(string $alias): string
+    {
+        return match ($alias) {
+            'discord' => DiscordChannel::class,
+            'telegram' => TelegramChannel::class,
+            default => $alias,
+        };
+    }
+
     public function via(): array
     {
-        return array_keys(config('ok.notifications.via'));
+        $channels = collect(config('ok.notifications.via'))->keys();
+
+        $drivers = $channels->map(fn (string $channel) => $this->getDriver($channel));
+
+        return $drivers->toArray();
     }
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
@@ -61,7 +76,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
 
     public function toDiscord(): DiscordMessage
     {
-        return DiscordMessage::create($this->getMessage(), [
+        return DiscordMessage::create(embed: [
             'title' => $this->getTitle(),
             'color' => 0xF44336,
         ]);
@@ -70,7 +85,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
     public function toSlack(): SlackMessage
     {
         return (new SlackMessage)
-            ->content($this->getMessage());
+            ->text($this->getMessage());
     }
 
     public function toTelegram(): TelegramMessage
