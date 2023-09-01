@@ -25,7 +25,10 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.5",
+        "laravel-notification-channels/discord": "^1.5",
+        "laravel-notification-channels/telegram": "^4.0",
         "laravel/pint": "^1.0",
+        "laravel/slack-notification-channel": "^3.0",
         "nunomaduro/collision": "^v7.2.0",
         "nunomaduro/larastan": "^2.0.1",
         "orchestra/testbench": "^8.0",
