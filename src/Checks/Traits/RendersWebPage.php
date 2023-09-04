@@ -69,6 +69,9 @@ class RendersWebPage extends Check
         return $this;
     }
 
+    /**
+     * @throws InvalidCheck
+     */
     public function run(): Result
     {
         if (is_null($this->url)) {
@@ -89,15 +92,13 @@ class RendersWebPage extends Check
         }
 
         return Result::new()
-            ->ok()
-            ->shortSummary('Reachable');
+            ->ok('Reachable');
     }
 
     protected function failedResult(): Result
     {
         return Result::new()
-            ->failed()
-            ->shortSummary('Unreachable')
-            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
+            ->failed($this->failureMessage ?? "Pinging {$this->getName()} failed.")
+            ->summary('Unreachable');
     }
 }
