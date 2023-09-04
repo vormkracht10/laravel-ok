@@ -12,6 +12,16 @@ abstract class Check
 {
     use ManagesFrequencies;
 
+    /**
+     * The view name used for mail notifications if any.
+     */
+    public string $view;
+
+    /**
+     * The data passed to the view for mail notifications.
+     */
+    public array $data = [];
+
     protected string $expression = '* * * * *';
 
     protected ?string $name = null;

@@ -16,14 +16,22 @@ return [
             //     'channel' => 123456790,
             // ],
             // 'mail' => [
-            //     'to' => 'hello@example.com',
+            //     'to' => 'text@example.com',
             // ],
             // 'slack' => [
-            //     'webhook_url' => 'webhook-url',
+            //     'webhook' => 'webhook-url',
             // ],
             // 'telegram' => [
             //     'channel' => 1234567890,
             // ],
+        ],
+    ],
+
+    'checks' => [
+        'audit' => [
+            'path' => [
+                // '~/some/bin',
+            ],
         ],
     ],
 ];
