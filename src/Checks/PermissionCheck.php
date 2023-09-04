@@ -7,7 +7,7 @@ use Psy\Util\Json;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
-class FilePermissionCheck extends Check
+class PermissionCheck extends Check
 {
     protected array $configured;
 
