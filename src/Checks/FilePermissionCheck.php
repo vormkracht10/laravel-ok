@@ -3,7 +3,6 @@
 namespace Vormkracht10\LaravelOK\Checks;
 
 use Illuminate\Support\Facades\File;
-use Psy\Util\Json;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
