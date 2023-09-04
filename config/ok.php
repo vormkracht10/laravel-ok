@@ -12,25 +12,25 @@ return [
         'notifiable' => Notifiable::class,
 
         'via' => [
-            //             'discord' => [
-            //                 'channel' => 123456790,
-            //             ],
-            //             'mail' => [
-            //                 'to' => 'text@example.com',
-            //             ],
-            //             'slack' => [
-            //                 'webhook' => 'webhook-url',
-            //             ],
-            //             'telegram' => [
-            //                 'channel' => 1234567890,
-            //            ],
+            // 'discord' => [
+            //     'channel' => 123456790,
+            // ],
+            // 'mail' => [
+            //     'to' => 'text@example.com',
+            // ],
+            // 'slack' => [
+            //     'webhook' => 'webhook-url',
+            // ],
+            // 'telegram' => [
+            //     'channel' => 1234567890,
+            // ],
         ],
     ],
 
     'checks' => [
         'audit' => [
             'path' => [
-                //                '~/some/bin',
+                // '~/some/bin',
             ],
         ],
     ],
