@@ -21,8 +21,7 @@
         "mtdowling/cron-expression": "^1.2",
         "spatie/laravel-package-tools": "^1.14.0",
         "symfony/dom-crawler": "^6.2",
-        "vlucas/phpdotenv": "^5.5",
-        "ext-posix": "*"
+        "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
