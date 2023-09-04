@@ -8,7 +8,9 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
+use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
+use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
@@ -21,18 +23,27 @@ class CheckFailedNotification extends Notification implements ShouldQueue
     {
     }
 
+    public function getDriver(string $alias): string
+    {
+        return match ($alias) {
+            'discord' => DiscordChannel::class,
+            'telegram' => TelegramChannel::class,
+            default => $alias,
+        };
+    }
+
     public function via(): array
     {
-        return array_keys(config('ok.notifications.via'));
+        $channels = collect(config('ok.notifications.via'))->keys();
+
+        $drivers = $channels->map(fn (string $channel) => $this->getDriver($channel));
+
+        return $drivers->toArray();
     }
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
     {
-        if (! config('ok.notifications.enabled')) {
-            return false;
-        }
-
-        return true;
+        return config('ok.notifications.enabled', false);
     }
 
     public function getTitle(): string
@@ -41,25 +52,31 @@ class CheckFailedNotification extends Notification implements ShouldQueue
             '🔥', '🧯', '‼️', '⁉️', '🔴', '📣', '😅', '🥵',
         ]);
 
-        return $emoji.' '.$this->result->message;
+        return $emoji.' '.$this->result->getMessage();
     }
 
     public function getMessage(): string
     {
-        return $this->result->message;
+        return $this->result->getMessage();
     }
 
     public function toMail(): MailMessage
     {
-        return (new MailMessage)
-            ->subject($this->getTitle())
-            ->greeting($this->getMessage())
-            ->line($this->getMessage());
+        $mail = (new MailMessage)
+            ->subject($this->getTitle());
+
+        if (($view = $this->check->view ?? null) !== null) {
+            $mail->markdown($view, $this->check->data);
+        } else {
+            $mail->greeting($this->getMessage());
+        }
+
+        return $mail;
     }
 
     public function toDiscord(): DiscordMessage
     {
-        return DiscordMessage::create($this->getMessage(), [
+        return DiscordMessage::create(embed: [
             'title' => $this->getTitle(),
             'color' => 0xF44336,
         ]);
