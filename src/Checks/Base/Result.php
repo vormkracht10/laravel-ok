@@ -19,7 +19,9 @@ class Result
     public function __construct(
         public Status $status,
         public string $message = '',
+        public string $summary = '',
     ) {
+        //
     }
 
     public function check(Check $check): self
@@ -32,6 +34,13 @@ class Result
     public function message(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function summary(string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }

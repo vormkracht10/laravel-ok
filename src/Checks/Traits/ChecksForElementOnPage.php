@@ -3,12 +3,13 @@
 namespace Vormkracht10\LaravelOK\Checks\Traits;
 
 use Exception;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
-use Spatie\Health\Exceptions\InvalidCheck;
 use Symfony\Component\DomCrawler\Crawler;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Vormkracht10\LaravelOK\Exceptions\InvalidCheck;
 
 class ChecksForElementOnPage extends Check
 {
@@ -75,10 +76,6 @@ class ChecksForElementOnPage extends Check
             $element = $crawler->filter($element);
         }
 
-        if (! $element) {
-            return false;
-        }
-
         if (is_null($this->text) && is_null($this->attribute)) {
             return true;
         }
@@ -102,24 +99,23 @@ class ChecksForElementOnPage extends Check
         return false;
     }
 
-    /** @throws InvalidCheck */
-    public function getUrlResponse(): Response
+    /**
+     * @throws InvalidCheck
+     * @throws Exception
+     */
+    public function getUrlResponse(): PromiseInterface|Response|Result
     {
         if (is_null($this->url)) {
             throw InvalidCheck::urlNotSet();
         }
 
-        try {
-            $request = Http::timeout($this->timeout)
-                ->withHeaders($this->headers)
-                ->retry($this->retryTimes)
-                ->send('GET', $this->url);
+        $request = Http::timeout($this->timeout)
+            ->withHeaders($this->headers)
+            ->retry($this->retryTimes)
+            ->send('GET', $this->url);
 
-            if (! $request->successful()) {
-                return $this->failedResult();
-            }
-        } catch (Exception $exception) {
-            throw $exception;
+        if (! $request->successful()) {
+            return $this->failedResult();
         }
 
         return $request;
@@ -137,8 +133,7 @@ class ChecksForElementOnPage extends Check
     protected function failedResult(): Result
     {
         return Result::new()
-            ->failed()
-            ->shortSummary('Unreachable')
-            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
+            ->failed($this->failureMessage ?? "Pinging {$this->getName()} failed.")
+            ->summary('Unreachable');
     }
 }
