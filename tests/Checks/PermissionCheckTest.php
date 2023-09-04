@@ -25,7 +25,7 @@ it('can check permissions for a file', function () {
     } finally {
         File::delete($filename);
     }
-});
+})->skipOnWindows();
 
 it('can check permissions for a directory', function () {
     $dirname = __DIR__.'/'.random_int(0, PHP_INT_MAX);
@@ -47,4 +47,4 @@ it('can check permissions for a directory', function () {
     } finally {
         rmdir($dirname);
     }
-});
+})->skipOnWindows();
