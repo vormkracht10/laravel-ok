@@ -19,6 +19,6 @@ class HorizonCheck extends Check
 
         return Artisan::call('horizon:status') == 0 ?
             $result->ok('Horizon is running.') :
-            $result->failed('Horizon is not running or paused.');
+            $result->failed('Horizon is not running or is paused.');
     }
 }
