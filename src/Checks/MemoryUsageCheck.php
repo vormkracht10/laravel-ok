@@ -20,11 +20,11 @@ class MemoryUsageCheck extends Check
 
     public function getSystemMemInfo()
     {
-        $data = explode("\n", trim(file_get_contents("/proc/meminfo")));
+        $data = explode("\n", trim(file_get_contents('/proc/meminfo')));
         $memInfo = [];
 
         foreach ($data as $line) {
-            [$key, $val] = explode(":", $line);
+            [$key, $val] = explode(':', $line);
             $memInfo[$key] = explode(' ', trim($val), 2)[0];
         }
 
