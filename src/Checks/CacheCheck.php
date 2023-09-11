@@ -14,7 +14,7 @@ class CacheCheck extends Check
     protected array $drivers = [];
 
     /**
-     * @param array<int, string> $drivers The drivers that should be checked for read and write access.
+     * @param  array<int, string>  $drivers The drivers that should be checked for read and write access.
      * @return $this
      */
     public function drivers(array $drivers): static
@@ -58,8 +58,6 @@ class CacheCheck extends Check
     }
 
     /**
-     * @param Repository $repository
-     * @return bool
      * @throws InvalidArgumentException
      */
     protected function checkRead(Repository $repository): bool
