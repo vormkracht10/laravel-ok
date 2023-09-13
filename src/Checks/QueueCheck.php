@@ -52,6 +52,7 @@ class QueueCheck extends Check
 
             if ($pending) {
                 sleep(1);
+
                 continue;
             }
 
@@ -64,7 +65,7 @@ class QueueCheck extends Check
 
         $failed = array_diff($this->onQueues, $this->ranQueues());
 
-        return $result->failed('some queues didn\'t run: ' . implode(', ', $failed));
+        return $result->failed('some queues didn\'t run: '.implode(', ', $failed));
     }
 
     public function getCacheDriver(): string
@@ -76,7 +77,7 @@ class QueueCheck extends Check
     {
         return array_filter(
             $this->onQueues,
-            fn($queue) => Cache::driver($this->getCacheDriver())->get("{$this->key}:{$queue}", false) == true,
+            fn ($queue) => Cache::driver($this->getCacheDriver())->get("{$this->key}:{$queue}", false) == true,
         );
     }
 
