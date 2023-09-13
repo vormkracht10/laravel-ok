@@ -16,14 +16,14 @@ class QueueCheck extends Check
 
     protected array $onQueues = [];
 
-    protected function failAfter(int $seconds): static
+    public function failAfter(int $seconds): static
     {
         $this->maxRuntime = $seconds;
 
         return $this;
     }
 
-    protected function cacheDriver(string $name): static
+    public function cacheDriver(string $name): static
     {
         $this->cacheDriver = $name;
 
