@@ -9,11 +9,11 @@ class DiskSpaceCheck extends Check
 {
     protected int $thresholdPercentage = 80;
 
-    protected string $at;
+    protected string $directory;
 
     public function __construct()
     {
-        $this->at = base_path();
+        $this->directory = base_path();
     }
 
     public function threshold(int $percentage): static
@@ -25,7 +25,7 @@ class DiskSpaceCheck extends Check
 
     public function directory(string $directory): static
     {
-        $this->at = $directory;
+        $this->directory = $directory;
 
         return $this;
     }
@@ -34,14 +34,12 @@ class DiskSpaceCheck extends Check
     {
         $result = Result::new();
 
-        $directory = $this->at;
-
-        $usage = floor(100 - ((disk_free_space($directory) / disk_total_space($directory)) * 100));
+        $usage = floor(100 - ((disk_free_space($this->directory) / disk_total_space($this->directory)) * 100));
 
         if ($usage > $this->thresholdPercentage) {
-            return $result->failed("disk space usage is {$usage}%, threshold set at {$this->thresholdPercentage}%");
+            return $result->failed("Disk space usage is {$usage}%, threshold set at {$this->thresholdPercentage}%");
         }
 
-        return $result->ok("disk space is usage is {$usage}%");
+        return $result->ok("Disk space is usage is {$usage}%");
     }
 }
