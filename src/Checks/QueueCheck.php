@@ -2,93 +2,84 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class QueueCheck extends Check
 {
-    protected string $key = 'laravel-ok:queue-check:key';
+    protected string $cacheKey = 'laravel-ok:queue-check:key';
 
-    protected int $maxRuntime = 10;
+    protected string $cacheDriver;
 
-    protected ?string $cacheDriver;
+    protected int $maxHeartbeatTimeout = 10;
 
     protected array $onQueues = [];
 
-    public function failAfter(int $seconds): static
+    public function cacheDriver(string $driver): static
     {
-        $this->maxRuntime = $seconds;
+        $this->cacheDriver = $driver;
 
         return $this;
     }
 
-    public function cacheDriver(string $name): static
+    public function getCacheDriver(): string
     {
-        $this->cacheDriver = $name;
+        return $this->cacheDriver ?? config('cache.default');
+    }
+
+    public function maxHeartbeatDelay(int $minutes): static
+    {
+        $this->maxHeartbeatTimeout = $minutes;
 
         return $this;
     }
 
-    public function onQueues(array $queues): static
+    public function getCacheKey(string $queue): string
     {
-        $this->onQueues = $queues;
+        return "{$this->cacheKey}:{$queue}";
+    }
+
+    public function queues(array $queues): static
+    {
+        $this->onQueues = array_unique($queues);
 
         return $this;
+    }
+
+    public function getQueues(): array
+    {
+        return $this->onQueues;
     }
 
     public function run(): Result
     {
         $result = Result::new();
 
-        foreach ($this->onQueues as $queue) {
-            $this->runQueue($queue);
-        }
+        $failed = [];
 
-        $max = now()->addSeconds($this->maxRuntime);
+        foreach ($this->getQueues() as $queue) {
+            $lastHeartbeat = Cache::driver($this->getCacheDriver())->get($this->getCacheKey($queue));
 
-        do {
-            $pending = array_diff($this->onQueues, $this->ranQueues());
-
-            if ($pending) {
-                sleep(1);
-
+            if (is_null($lastHeartbeat)) {
+                $failed[] = $queue;
                 continue;
             }
 
-            foreach ($this->onQueues as $queue) {
-                Cache::driver($this->getCacheDriver())->forget("{$this->key}:{$queue}");
+            $timestamp = Carbon::createFromTimestamp($lastHeartbeat);
+
+            $lastRun = $timestamp->diffInMinutes();
+
+            if ($lastRun > $this->maxHeartbeatTimeout) {
+                $failed[] = $queue;
             }
+        }
 
-            return $result->ok('all queues ran');
-        } while (now() < $max);
+        if (! empty($failed)) {
+            return $result->failed('There were issues with some queues: ' . implode(', ', $failed));
+        }
 
-        $failed = array_diff($this->onQueues, $this->ranQueues());
-
-        return $result->failed('some queues didn\'t run: '.implode(', ', $failed));
-    }
-
-    public function getCacheDriver(): string
-    {
-        return $this->cacheDriver ?? config('cache.default', 'array');
-    }
-
-    public function ranQueues(): array
-    {
-        return array_filter(
-            $this->onQueues,
-            fn ($queue) => Cache::driver($this->getCacheDriver())->get("{$this->key}:{$queue}", false) == true,
-        );
-    }
-
-    public function runQueue(string $name): void
-    {
-        $key = "{$this->key}:{$name}";
-        $driver = $this->getCacheDriver();
-        $ttl = $this->maxRuntime;
-
-        dispatch(function () use ($key, $driver, $ttl) {
-            Cache::driver($driver)->put($key, true, $ttl);
-        })->onQueue($name);
+        return $result->ok('All queues are doing fine.');
     }
 }
