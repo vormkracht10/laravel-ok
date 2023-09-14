@@ -64,6 +64,7 @@ class QueueCheck extends Check
 
             if (is_null($lastHeartbeat)) {
                 $failed[] = $queue;
+
                 continue;
             }
 
@@ -77,7 +78,7 @@ class QueueCheck extends Check
         }
 
         if (! empty($failed)) {
-            return $result->failed('There were issues with some queues: ' . implode(', ', $failed));
+            return $result->failed('There were issues with some queues: '.implode(', ', $failed));
         }
 
         return $result->ok('All queues are doing fine.');
