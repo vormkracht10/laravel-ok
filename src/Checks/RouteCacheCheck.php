@@ -12,7 +12,7 @@ class RouteCacheCheck extends Check
         $result = Result::new();
 
         return app()->routesAreCached()
-            ? $result->ok('routes are cached')
-            : $result->failed('routes are not cached');
+            ? $result->ok('Routes are cached')
+            : $result->failed('Routes are not cached');
     }
 }

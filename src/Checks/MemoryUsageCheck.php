@@ -40,9 +40,9 @@ class MemoryUsageCheck extends Check
         $usedPercentage = round(100 - (($data['MemAvailable'] / $data['MemTotal']) * 100), 2);
 
         if ($usedPercentage > $this->limit) {
-            return $result->failed("memory usage is at {$usedPercentage}%, limit is configured to {$this->limit}%");
+            return $result->failed("Memory usage is at {$usedPercentage}%, limit is configured to {$this->limit}%");
         }
 
-        return $result->ok("memory usage is at {$usedPercentage}");
+        return $result->ok("Memory usage is at {$usedPercentage}");
     }
 }

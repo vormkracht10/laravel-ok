@@ -12,7 +12,7 @@ class ConfigCacheCheck extends Check
         $result = Result::new();
 
         return app()->configurationIsCached()
-            ? $result->ok('configuration is cached')
-            : $result->failed('configuration is not cached');
+            ? $result->ok('Configuration is cached')
+            : $result->failed('Configuration is not cached');
     }
 }

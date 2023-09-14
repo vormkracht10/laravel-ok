@@ -16,12 +16,12 @@ final class NpmAuditCheck extends AuditCheck
 
         if (! (count($data['vulnerabilities'])) > 0) {
             return Result::new()
-                ->ok('Found no vulnerabilities for your dependencies in NPM.');
+                ->ok('Found no vulnerabilities for your dependencies in NPM');
         }
 
         $this->data = $data;
 
         return Result::new()
-            ->failed("Found {$data['metadata']['vulnerabilities']['total']} vulnerabilities for your dependencies in NPM.");
+            ->failed("Found {$data['metadata']['vulnerabilities']['total']} vulnerabilities for your dependencies in NPM");
     }
 }
