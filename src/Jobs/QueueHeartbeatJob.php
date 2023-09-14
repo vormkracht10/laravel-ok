@@ -15,11 +15,6 @@ class QueueHeartbeatJob implements ShouldQueue
 
     protected QueueCheck $check;
 
-    public function retryUntil(): DateTime
-    {
-        return now()->addMinutes($this->check->maxHeartbeatDelay);
-    }
-
     public function __construct(QueueCheck $check)
     {
         $this->check = $check;
