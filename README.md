@@ -1,9 +1,11 @@
 # Is your Laravel app OK?
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-ok)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/laravel-ok/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/laravel-ok/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/laravel-ok/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/vormkracht10/laravel-ok/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-ok)
+[![Tests](https://github.com/vormkracht10/laravel-ok/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-ok/actions/workflows/run-tests.yml)
+[![PHPStan](https://github.com/vormkracht10/laravel-ok/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-ok/actions/workflows/phpstan.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/vormkracht10/laravel-ok)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/vormkracht10/laravel-ok)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-ok)
 
 Health checks made in production to ensure you can sleep well at night and be sure everything is still OK.
 
@@ -15,31 +17,95 @@ You can install the package via composer:
 composer require vormkracht10/laravel-ok
 ```
 
-You can publish and run the migrations with:
+You can then install the package by using the `ok:install` Artisan command:
 
 ```bash
-php artisan vendor:publish --tag="laravel-ok-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-ok-config"
+php artisan ok:install
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'notifications' => [
+        'enabled' => env('LARAVEL_OK_NOTIFICATIONS_ENABLED', true),
+
+        'failed_notification' => CheckFailedNotification::class,
+
+        'notifiable' => Notifiable::class,
+
+        'via' => [
+            // 'discord' => [
+            //     'channel' => 123456790,
+            // ],
+            // 'mail' => [
+            //     'to' => 'text@example.com',
+            // ],
+            // 'slack' => [
+            //     'webhook' => 'webhook-url',
+            // ],
+            // 'telegram' => [
+            //     'channel' => 1234567890,
+            // ],
+        ],
+    ],
+
+    'checks' => [
+        'audit' => [
+            'path' => [
+                // '~/some/bin',
+            ],
+        ],
+    ],
 ];
 ```
 
 ## Usage
 
+To register checks for your application, you need to register them in the `checks` array in your `AppServiceProvider` register method.
+
 ```php
 
+use Vormkracht10\LaravelOK\Facades\OK;
+
+class AppServiceProvider extends ServiceProvider
+{
+    // ...
+
+    public function register()
+    {
+        OK::checks([
+            EnvironmentCheck::shouldBe('production'),
+            DebugModeCheck::shouldBe('false'),
+        ]);
+    }
+}
 ```
+
+## Available checks
+
+✅ **Cache Check**: Check if reading and writing to the cache is possible.
+
+✅ **Composer Audit Check**: Checks if there are any security vulnerabilities in your composer dependencies.
+
+✅ **Config Cache Check**: Checks if the config is cached.
+
+✅ **Debug Mode Check**: Checks if debug mode is enabled.
+
+✅ **Disk Space Check**: Checks if the disk space is below a certain threshold.
+
+✅ **Environment Check**: Checks if the current environment matches the given environment.
+
+✅ **Event Cache Check**: Checks if events are cached.
+
+✅ **Horizon Check**: Checks if Horizon is running.
+
+✅ **NPM Audit Check**: Checks if there are any security vulnerabilities in your npm dependencies.
+
+✅ **Queue Check**: Checks if the queue is running.
+
+✅ **Route Cache Check**: Checks if routes are cached.
+
 
 ## Testing
 
