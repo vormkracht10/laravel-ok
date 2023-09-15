@@ -36,7 +36,7 @@ it('fails when dependencies have vulnerabilities', function () {
         ->run();
 
     expect($result)
-        ->getMessage()->toBe('Found 1 vulnerabilities for your dependencies in Composer.')
+        ->getMessage()->toBe('Found 1 vulnerabilities for your dependencies in Composer')
         ->status->toBe(Status::FAILED);
 });
 
