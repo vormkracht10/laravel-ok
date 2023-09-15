@@ -5,6 +5,7 @@ namespace Vormkracht10\LaravelOK\Checks;
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Illuminate\Redis\Connections\PredisConnection;
 use Illuminate\Support\Facades\Redis;
+use RuntimeException;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
@@ -31,6 +32,10 @@ class RedisMemoryUsageCheck extends Check
 
     public function run(): Result
     {
+        if (! isset($this->threshold)) {
+            throw new RuntimeException('threshold for RedisMemoryUsageCheck is not set');
+        }
+
         $result = Result::new();
 
         $bytes = $this->memoryUsageInBytes();
@@ -38,7 +43,6 @@ class RedisMemoryUsageCheck extends Check
         $readable = round($bytes / (10 ** 6), 2);
         $readableMax = $this->threshold / (10 ** 6);
 
-        echo $this->threshold;
 
         if ($bytes >= $this->threshold) {
             return $result->failed("Memory usage is {$readable}MB, max is configured at {$readableMax}MB");
