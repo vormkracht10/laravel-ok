@@ -23,7 +23,7 @@ class ExtensionCheck extends Check
         $loaded = get_loaded_extensions();
 
         if (! empty($diff = array_diff($this->extensions, $loaded))) {
-            return $result->failed('Some extensions aren\'t loaded: ' . implode(', ', $diff));
+            return $result->failed('Some extensions aren\'t loaded: '.implode(', ', $diff));
         }
 
         return $result->ok('All specified extensions are loaded');
