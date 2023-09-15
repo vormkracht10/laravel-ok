@@ -7,6 +7,7 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vormkracht10\LaravelOK\Commands\DispatchQueueCheckJobsCommand;
 use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
+use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
 use Vormkracht10\LaravelOK\Listeners\SendCheckFailedNotification;
 
@@ -19,8 +20,9 @@ class LaravelOKServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             // ->hasMigration('create_laravel_ok_table')
             ->hasCommands(
-                RunChecksCommand::class,
                 DispatchQueueCheckJobsCommand::class,
+                RunChecksCommand::class,
+                SchedulerHeartbeatCommand::class,
             )
             ->hasViews('ok')
             ->hasInstallCommand(function (InstallCommand $command) {
