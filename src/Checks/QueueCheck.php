@@ -29,7 +29,7 @@ class QueueCheck extends Check
         return $this->cacheDriver ?? config('cache.default');
     }
 
-    public function maxHeartbeatDelay(int $minutes): static
+    public function setMaxHeartbeatTimeout(int $minutes): static
     {
         $this->maxHeartbeatTimeout = $minutes;
 
