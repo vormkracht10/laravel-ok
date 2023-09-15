@@ -88,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
 
 ✅ **Composer Audit Check**: Checks if there are any security vulnerabilities in your composer dependencies.
 
-✅ **Config Cache Check**: Checks if the configured cache matches the given value.
+✅ **Config Cache Check**: Checks if the config is cached.
 
 ✅ **Debug Mode Check**: Checks if debug mode is enabled.
 
@@ -100,7 +100,7 @@ class AppServiceProvider extends ServiceProvider
 
 ✅ **Horizon Check**: Checks if Horizon is running.
 
-✅ **Npm Audit Check**: Checks if there are any security vulnerabilities in your npm dependencies.
+✅ **NPM Audit Check**: Checks if there are any security vulnerabilities in your npm dependencies.
 
 ✅ **Queue Check**: Checks if the queue is running.
 
