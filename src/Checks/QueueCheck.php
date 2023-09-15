@@ -29,7 +29,7 @@ class QueueCheck extends Check
         return $this->cacheDriver ?? config('cache.default');
     }
 
-    public function maxHeartbeatDelay(int $minutes): static
+    public function setMaxHeartbeatTimeout(int $minutes): static
     {
         $this->maxHeartbeatTimeout = $minutes;
 
@@ -50,7 +50,13 @@ class QueueCheck extends Check
 
     public function getQueues(): array
     {
-        return $this->onQueues;
+        $queues = [];
+
+        foreach ($this->onQueues as $key => $value) {
+            $queues[] = is_int($key) ? $value : $key;
+        }
+
+        return $queues;
     }
 
     public function run(): Result
@@ -59,7 +65,13 @@ class QueueCheck extends Check
 
         $failed = [];
 
-        foreach ($this->getQueues() as $queue) {
+        foreach ($this->getQueues() as $key => $value) {
+            $queue = is_int($key) ? $value : $key;
+
+            $max = $this->hasMaxHeartbeatTimeout($queue)
+                ? $this->onQueues[$queue]
+                : $this->maxHeartbeatTimeout;
+
             $lastHeartbeat = Cache::driver($this->getCacheDriver())->get($this->getCacheKey($queue));
 
             if (is_null($lastHeartbeat)) {
@@ -70,9 +82,9 @@ class QueueCheck extends Check
 
             $timestamp = Carbon::createFromTimestamp($lastHeartbeat);
 
-            $lastRun = $timestamp->diffInMinutes();
+            $lastRun = $timestamp->diffInSeconds();
 
-            if ($lastRun > $this->maxHeartbeatTimeout) {
+            if ($lastRun / 60 > $max) {
                 $failed[] = $queue;
             }
         }
@@ -82,5 +94,10 @@ class QueueCheck extends Check
         }
 
         return $result->ok('All queues are doing fine.');
+    }
+
+    protected function hasMaxHeartbeatTimeout(string $queue): bool
+    {
+        return isset($this->onQueues[$queue]) && is_int($this->onQueues[$queue]);
     }
 }
