@@ -65,9 +65,7 @@ class QueueCheck extends Check
 
         $failed = [];
 
-        foreach ($this->getQueues() as $key => $value) {
-            $queue = is_int($key) ? $value : $key;
-
+        foreach ($this->getQueues() as $queue) {
             $max = $this->hasMaxHeartbeatTimeout($queue)
                 ? $this->onQueues[$queue]
                 : $this->maxHeartbeatTimeout;
