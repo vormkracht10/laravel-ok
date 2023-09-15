@@ -12,7 +12,7 @@ class EventCacheCheck extends Check
         $result = Result::new();
 
         return app()->eventsAreCached()
-            ? $result->ok('events are cached')
-            : $result->failed('events are not cached');
+            ? $result->ok('Events are cached')
+            : $result->failed('Events are not cached');
     }
 }

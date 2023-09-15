@@ -29,20 +29,20 @@ class CacheCheck extends Check
         $result = Result::new();
 
         if (empty($this->drivers)) {
-            return $result->failed('no configured drivers found for CacheCheck');
+            return $result->failed('No configured drivers found for CacheCheck.');
         }
 
         foreach ($this->drivers as $driver) {
             try {
                 if (! $this->checkDriver($driver)) {
-                    return $result->failed("failed to read or delete from or write to driver: {$driver}");
+                    return $result->failed("Failed to read or delete from or write to driver: {$driver}");
                 }
             } catch (InvalidArgumentException) {
-                return $result->failed('oops! Something went wrong, please report this issue to our github page');
+                return $result->failed('Oops! Something went wrong, please report this issue on GitHub.');
             }
         }
 
-        return $result->ok('reading and writing from cache works');
+        return $result->ok('Reading and writing from cache works!');
     }
 
     /**

@@ -16,12 +16,12 @@ final class ComposerAuditCheck extends AuditCheck
 
         if (! ($count = count($data)) > 0) {
             return Result::new()
-                ->ok('Found no vulnerabilities for your dependencies in Composer.');
+                ->ok('Found no vulnerabilities for your dependencies in Composer');
         }
 
         $this->data = ['vulnerabilities' => $data];
 
         return Result::new()
-            ->failed("Found $count vulnerabilities for your dependencies in Composer.");
+            ->failed("Found {$count} vulnerabilities for your dependencies in Composer");
     }
 }

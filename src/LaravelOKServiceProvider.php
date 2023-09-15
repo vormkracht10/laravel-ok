@@ -5,6 +5,7 @@ namespace Vormkracht10\LaravelOK;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Vormkracht10\LaravelOK\Commands\DispatchQueueCheckJobsCommand;
 use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
 use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
@@ -19,6 +20,7 @@ class LaravelOKServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             // ->hasMigration('create_laravel_ok_table')
             ->hasCommands(
+                DispatchQueueCheckJobsCommand::class,
                 RunChecksCommand::class,
                 SchedulerHeartbeatCommand::class,
             )

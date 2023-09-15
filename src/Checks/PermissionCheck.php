@@ -20,7 +20,7 @@ class PermissionCheck extends Check
     public function run(): Result
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            return Result::new()->failed('this check does not run on windows');
+            return Result::new()->failed('This check does not run on windows');
         }
 
         foreach ($this->configured as $file => $configuration) {
@@ -42,7 +42,7 @@ class PermissionCheck extends Check
             }
         }
 
-        return Result::new()->ok('file permission expectations were met');
+        return Result::new()->ok('Permission expectations were met');
     }
 
     protected function getMeta(string $file): array

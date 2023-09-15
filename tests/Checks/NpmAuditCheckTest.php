@@ -26,7 +26,7 @@ it('can use custom data', function () {
     expect($check->run())
         ->toBeInstanceOf(Result::class)
         ->status->toBe(Status::FAILED)
-        ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM.');
+        ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM');
 });
 
 it('fails when dependencies have vulnerabilities', function () {
@@ -39,7 +39,7 @@ it('fails when dependencies have vulnerabilities', function () {
     expect($result)
         ->toBeInstanceOf(Result::class)
         ->status->toBe(Status::FAILED)
-        ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM.');
+        ->getMessage()->toBe('Found 2 vulnerabilities for your dependencies in NPM');
 
     chdir($dir);
 })->skipOnWindows();
