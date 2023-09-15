@@ -17,7 +17,7 @@ class SchedulerHeartbeatCommand extends Command
     public function handle(): int
     {
         /**
-         * @var SchedulerCheck $check
+         * @var SchedulerCheck|null $check
          */
         $check = OK::configuredChecks()->first(
             fn (Check $check) => $check instanceof SchedulerCheck,
