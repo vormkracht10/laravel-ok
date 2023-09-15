@@ -43,7 +43,6 @@ class RedisMemoryUsageCheck extends Check
         $readable = round($bytes / (10 ** 6), 2);
         $readableMax = $this->threshold / (10 ** 6);
 
-
         if ($bytes >= $this->threshold) {
             return $result->failed("Memory usage is {$readable}MB, max is configured at {$readableMax}MB");
         }
