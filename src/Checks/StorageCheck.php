@@ -21,7 +21,7 @@ class StorageCheck extends Check
     }
 
     /**
-     * @param array<int, string>|string $names
+     * @param  array<int, string>|string  $names
      * @return $this
      */
     public function disks($names): static
