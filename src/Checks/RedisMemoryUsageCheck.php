@@ -13,17 +13,17 @@ class RedisMemoryUsageCheck extends Check
 {
     protected int $threshold;
 
-    public function gigabytes($amount): static
+    public function setThresholdGigabytes($amount): static
     {
-        return $this->threshold($amount * (10 ** 9));
+        return $this->setThreshold($amount * (10 ** 9));
     }
 
-    public function megabytes($amount): static
+    public function setThresholdMegabytes($amount): static
     {
-        return $this->threshold($amount * (10 ** 6));
+        return $this->setThreshold($amount * (10 ** 6));
     }
 
-    public function threshold(int $bytes): static
+    public function setThreshold(int $bytes): static
     {
         $this->threshold = $bytes;
 
@@ -33,7 +33,7 @@ class RedisMemoryUsageCheck extends Check
     public function run(): Result
     {
         if (! isset($this->threshold)) {
-            throw new RuntimeException('threshold for RedisMemoryUsageCheck is not set');
+            throw new RuntimeException('Threshold for RedisMemoryUsageCheck is not set');
         }
 
         $result = Result::new();
@@ -50,7 +50,7 @@ class RedisMemoryUsageCheck extends Check
         return $result->ok("Memory usage is at {$readable}MB");
     }
 
-    public function memoryUsageInBytes(): int
+    protected function memoryUsageInBytes(): int
     {
         $redis = Redis::connection();
 
