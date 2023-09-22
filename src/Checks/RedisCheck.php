@@ -32,7 +32,9 @@ class RedisCheck extends Check
 
         foreach ($connections as $connection) {
             try {
-                Redis::connection($connection)->{'PING'}() !== 'PONG' ?? throw new \Exception;
+                if (Redis::connection($connection)->{'PING'}('PONG') !== 'PONG') {
+                    throw new \Exception;
+                }
             } catch (\Exception) {
                 return $result->failed("Could not connect to Redis with connection [{$connection}]");
             }
