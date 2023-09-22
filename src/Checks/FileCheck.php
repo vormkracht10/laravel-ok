@@ -10,7 +10,7 @@ class FileCheck extends Check
     protected array $files = [];
 
     /**
-     * @param array<int, string> $files
+     * @param  array<int, string>  $files
      * @return $this
      */
     public function files(array $files): static
