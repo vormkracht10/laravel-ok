@@ -15,8 +15,7 @@ class RedisCheck extends Check
     protected array $connections = [];
 
     /**
-     * @param non-empty-array<int, string>|string $connections
-     * @return static
+     * @param  non-empty-array<int, string>|string  $connections
      */
     public function withConnections($connections): static
     {
