@@ -2,6 +2,8 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
+use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
@@ -9,13 +11,13 @@ use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class StorageCheck extends Check
 {
-    protected string $filename = 'laravel-ok::storage-check::file';
+    protected ?string $path;
 
     protected array $disks = [];
 
-    public function filename(string $filename): static
+    public function path(?string $value = null): static
     {
-        $this->filename = $filename;
+        $this->path = $value;
 
         return $this;
     }
@@ -26,9 +28,7 @@ class StorageCheck extends Check
      */
     public function disks($names): static
     {
-        $names = Arr::wrap($names);
-
-        $this->disks = $names;
+        $this->disks = Arr::wrap($names);
 
         return $this;
     }
@@ -39,19 +39,26 @@ class StorageCheck extends Check
 
         $failed = [];
 
+        if (! $this->path) {
+            $this->path = 'laravel-ok/storage-check-'.rand();
+        }
+
+        $directories = array_filter(
+            explode('/', $this->path),
+            fn ($s) => ! empty($s),
+        );
+
+        array_pop($directories);
+
         foreach ($this->disks as $disk) {
-            $content = rand();
+            $disk = Storage::disk($disk);
 
-            try {
-                Storage::disk($disk)->put($this->filename, $content);
+            if (! $this->checkDisk($disk, $this->path)) $failed[] = $disk;
 
-                $stored = Storage::disk($disk)->get($this->filename);
-            } finally {
-                Storage::disk($disk)->delete($this->filename);
-            }
+            foreach ($directories as $directory) {
+                if (! empty($disk->allFiles($directory))) continue;
 
-            if ((int) $stored !== $content) {
-                $failed[] = $disk;
+                $disk->deleteDirectory($directory);
             }
         }
 
@@ -60,5 +67,20 @@ class StorageCheck extends Check
         }
 
         return $result->ok('All disks have been verified');
+    }
+
+    protected function checkDisk(FilesystemContract $disk, string $path): bool
+    {
+        $content = rand();
+
+        try {
+            $disk->put($path, $content);
+
+            $stored = $disk->get($path);
+
+            return (int) $stored === $content;
+        } finally {
+            $disk->delete($path);
+        }
     }
 }
