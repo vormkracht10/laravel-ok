@@ -3,7 +3,6 @@
 namespace Vormkracht10\LaravelOK\Checks;
 
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
@@ -15,7 +14,7 @@ class StorageCheck extends Check
 
     protected array $disks = [];
 
-    public function path(?string $value = null): static
+    public function path(string $value = null): static
     {
         $this->path = $value;
 
@@ -53,10 +52,14 @@ class StorageCheck extends Check
         foreach ($this->disks as $disk) {
             $disk = Storage::disk($disk);
 
-            if (! $this->checkDisk($disk, $this->path)) $failed[] = $disk;
+            if (! $this->checkDisk($disk, $this->path)) {
+                $failed[] = $disk;
+            }
 
             foreach ($directories as $directory) {
-                if (! empty($disk->allFiles($directory))) continue;
+                if (! empty($disk->allFiles($directory))) {
+                    continue;
+                }
 
                 $disk->deleteDirectory($directory);
             }
