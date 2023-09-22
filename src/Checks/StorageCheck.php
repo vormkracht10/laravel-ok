@@ -55,7 +55,12 @@ class StorageCheck extends Check
 
             if (! $this->checkDisk($disk, $this->path)) $failed[] = $disk;
 
+            $checked = [];
+
             foreach ($directories as $directory) {
+                $checked[] = $directory;
+                $directory = implode('/', $checked);
+
                 if (! empty($disk->allFiles($directory))) continue;
 
                 $disk->deleteDirectory($directory);
