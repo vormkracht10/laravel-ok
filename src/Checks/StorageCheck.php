@@ -61,7 +61,7 @@ class StorageCheck extends Check
             foreach ($directories as $directory) {
                 $checked[] = $directory;
                 $directory = implode('/', $checked);
-
+              
                 if (! empty($disk->allFiles($directory))) {
                     continue;
                 }
