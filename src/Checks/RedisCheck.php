@@ -2,17 +2,25 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redis;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class RedisCheck extends Check
 {
-    protected ?string $connection = null;
+    /**
+     * @var array<int, string>
+     */
+    protected array $connections = [];
 
-    public function withConnection(string $connection): static
+    /**
+     * @param non-empty-array<int, string>|string $connections
+     * @return static
+     */
+    public function withConnections($connections): static
     {
-        $this->connection = $connection;
+        $this->connections = Arr::wrap($connections);
 
         return $this;
     }
@@ -21,10 +29,14 @@ class RedisCheck extends Check
     {
         $result = Result::new();
 
-        try {
-            Redis::connection()->{'PING'}() !== 'PONG' ?? throw new \Exception;
-        } catch (\Exception) {
-            return $result->failed('Could not connect to Redis');
+        $connections = empty($this->connections) ? [null] : $this->connections;
+
+        foreach ($connections as $connection) {
+            try {
+                Redis::connection($connection)->{'PING'}() !== 'PONG' ?? throw new \Exception;
+            } catch (\Exception) {
+                return $result->failed("Could not connect to Redis with connection [{$connection}]");
+            }
         }
 
         return $result->ok('Redis responded with PONG');
