@@ -10,6 +10,8 @@ class NpmPackageInstalledCheck extends Check
 {
     protected array $shouldHave = [];
 
+    protected array $with = [];
+
     public function shouldHave(array $packages): self
     {
         $this->shouldHave = $packages;
@@ -21,7 +23,7 @@ class NpmPackageInstalledCheck extends Check
     {
         $result = Result::new();
 
-        $installedPackages = $this->getInstalledPackages();
+        $installedPackages = $this->data();
 
         $missingPackages = array_diff($this->shouldHave, array_keys($installedPackages));
 
@@ -34,15 +36,11 @@ class NpmPackageInstalledCheck extends Check
         return $result->failed("The following packages are missing: {$missingPackages}");
     }
 
-    private function getInstalledPackages()
+    protected function data()
     {
-        $process = new Process(['npm', 'list', '--depth=0', '--json']);
-        $process->run();
-
-        $output = $process->getOutput();
-
-        $json = json_decode($output, true);
-
-        return $json['dependencies'];
+        return $this->with ?? json_decode(
+            new Process(['npm', 'list', '--depth=0', '--json'])->run()->getOutput(),
+            true,
+        )['dependencies'];
     }
 }
