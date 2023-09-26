@@ -1,6 +1,5 @@
 <?php
 
-use Symfony\Component\Process\Process;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Checks\NpmPackageInstalledCheck;
 use Vormkracht10\LaravelOK\Enums\Status;
