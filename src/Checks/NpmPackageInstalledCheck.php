@@ -23,8 +23,6 @@ class NpmPackageInstalledCheck extends Check
 
         $installedPackages = $this->getInstalledPackages();
 
-        dd($installedPackages);
-
         $missingPackages = array_diff($this->shouldHave, array_keys($installedPackages));
 
         if (count($missingPackages) === 0) {
@@ -38,9 +36,7 @@ class NpmPackageInstalledCheck extends Check
 
     private function getInstalledPackages()
     {
-        $process = Process::fromShellCommandline('npm list --depth=0 --json');
-
-        $process->run();
+        $process = Process::run('npm list --depth=0 --json');
 
         $output = $process->getOutput();
 
