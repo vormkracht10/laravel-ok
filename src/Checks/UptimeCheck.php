@@ -35,8 +35,8 @@ class UptimeCheck extends Check
     protected function getSystemUptime(): Carbon
     {
         return match (PHP_OS) {
-            "Linux" => $this->getSystemUptimeLinux(),
-            "Darwin" => $this->getSystemUptimeDarwin(),
+            'Linux' => $this->getSystemUptimeLinux(),
+            'Darwin' => $this->getSystemUptimeDarwin(),
         };
     }
 
@@ -46,7 +46,7 @@ class UptimeCheck extends Check
 
         return match ($process->successful()) {
             true => $process->output(),
-            false => throw new RuntimeException('Could not get system boot timestamp: ' . $process->errorOutput()),
+            false => throw new RuntimeException('Could not get system boot timestamp: '.$process->errorOutput()),
         };
     }
 
