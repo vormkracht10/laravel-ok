@@ -2,7 +2,7 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Illuminate\Support\Facades\Process;
+use Symfony\Component\Process\Process;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
@@ -36,7 +36,8 @@ class NpmPackageInstalledCheck extends Check
 
     private function getInstalledPackages()
     {
-        $process = Process::run('npm list --depth=0 --json');
+        $process = new Process(['npm', 'list', '--depth=0', '--json']);
+        $process->run();
 
         $output = $process->getOutput();
 
