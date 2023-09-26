@@ -82,6 +82,12 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
+You can now run the checks using the `ok:check` Artisan command:
+
+```bash
+php artisan ok:check
+```
+
 ## Available checks
 
 ✅ **Cache Check**: Check if reading and writing to the cache is possible.
