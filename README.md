@@ -82,6 +82,12 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
+You can now run the checks using the `ok:check` Artisan command:
+
+```bash
+php artisan ok:check
+```
+
 ## Available checks
 
 ✅ **Cache Check**: Check if reading and writing to the cache is possible.
@@ -101,6 +107,8 @@ class AppServiceProvider extends ServiceProvider
 ✅ **Horizon Check**: Checks if Horizon is running.
 
 ✅ **NPM Audit Check**: Checks if there are any security vulnerabilities in your npm dependencies.
+
+✅ **NPM Installed Package Check**: Checks if a certain npm package is installed.
 
 ✅ **Queue Check**: Checks if the queue is running.
 
