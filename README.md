@@ -102,6 +102,8 @@ class AppServiceProvider extends ServiceProvider
 
 ✅ **NPM Audit Check**: Checks if there are any security vulnerabilities in your npm dependencies.
 
+✅ **NPM Installed Package Check**: Checks if a certain npm package is installed.
+
 ✅ **Queue Check**: Checks if the queue is running.
 
 ✅ **Route Cache Check**: Checks if routes are cached.
