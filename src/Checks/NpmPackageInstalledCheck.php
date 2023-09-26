@@ -19,6 +19,13 @@ class NpmPackageInstalledCheck extends Check
         return $this;
     }
 
+    public function with(array $data): self
+    {
+        $this->with = $data;
+
+        return $this;
+    }
+
     public function run(): Result
     {
         $result = Result::new();
@@ -38,9 +45,17 @@ class NpmPackageInstalledCheck extends Check
 
     protected function data()
     {
-        return $this->with ?? json_decode(
-            new Process(['npm', 'list', '--depth=0', '--json'])->run()->getOutput(),
-            true,
-        )['dependencies'];
+        if (count($this->with) > 0) {
+            return $this->with['dependencies'];
+        }
+
+        $process = new Process(['npm', 'list', '--depth=0', '--json']);
+        $process->run();
+
+        $output = $process->getOutput();
+
+        $json = json_decode($output, true);
+
+        return $json['dependencies'];
     }
 }
