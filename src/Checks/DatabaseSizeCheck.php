@@ -5,7 +5,6 @@ namespace Vormkracht10\LaravelOK\Checks;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\PostgresConnection;
-use Illuminate\Support\Arr;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
@@ -46,7 +45,6 @@ class DatabaseSizeCheck extends Check
         $max = $this->max * 1024 * 1024 * 1024;
 
         $size = $this->getDatabaseSize();
-
 
         if ($size > $max) {
             $mb = fn ($bytes) => round($bytes / 1024 / 1024);
