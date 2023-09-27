@@ -46,7 +46,6 @@ class DatabaseSizeCheck extends Check
 
         $size = $this->getDatabaseSize();
 
-
         if ($size > $max) {
             $mb = fn ($bytes) => round($bytes / 1024 / 1024);
 
