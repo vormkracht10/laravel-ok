@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Support\Facades\DB;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
