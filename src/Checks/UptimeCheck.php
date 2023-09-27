@@ -25,6 +25,10 @@ class UptimeCheck extends Check
 
         $timestamp = $this->getSystemUptime();
 
+        if (! isset($this->maxTimeSinceRebootTimestamp)) {
+            throw new \Exception('The max time since reboot was not set.');
+        }
+
         if ($this->maxTimeSinceRebootTimestamp > $timestamp) {
             return $result->failed("Last reboot was at [{$timestamp}], the maximum uptime for this server was set to [{$this->maxTimeSinceRebootTimestamp}]");
         }
