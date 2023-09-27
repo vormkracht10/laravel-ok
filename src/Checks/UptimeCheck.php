@@ -38,9 +38,10 @@ class UptimeCheck extends Check
 
     protected function getSystemUptime(): Carbon
     {
-        return match (PHP_OS) {
+        return match ($os = PHP_OS) {
             'Linux' => $this->getSystemUptimeLinux(),
             'Darwin' => $this->getSystemUptimeDarwin(),
+            default => throw new RuntimeException("This os ({$os}) is not supported by the UptimeCheck"),
         };
     }
 
