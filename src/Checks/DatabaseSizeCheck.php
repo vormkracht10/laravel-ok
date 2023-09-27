@@ -5,7 +5,6 @@ namespace Vormkracht10\LaravelOK\Checks;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\PostgresConnection;
-use Illuminate\Support\Arr;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
