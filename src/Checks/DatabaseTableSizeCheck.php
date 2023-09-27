@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Illuminate\Database\Connection;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\MySqlConnection;
@@ -66,7 +65,7 @@ class DatabaseTableSizeCheck extends Check
             $connection instanceof PostgresConnection => $connection->selectOne('SELECT pg_total_relation_size(?) AS size;', [
                 $table,
             ])->size,
-            default => throw new \Exception("This database type is not supported"),
+            default => throw new \Exception('This database type is not supported'),
         };
     }
 }
