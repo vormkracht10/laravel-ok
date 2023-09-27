@@ -31,8 +31,8 @@ class ProcessCountCheck extends Check
             }
         }
 
-        if (!empty($failed)) {
-            return $result->failed('Some commands have more processes running than should be allowed: [' . implode(', ', $failed) . ']');
+        if (! empty($failed)) {
+            return $result->failed('Some commands have more processes running than should be allowed: ['.implode(', ', $failed).']');
         }
 
         return $result->ok('All processes are ok');
