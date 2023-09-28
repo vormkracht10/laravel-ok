@@ -10,7 +10,7 @@ class CpuLoadCheck extends Check
 {
     protected array $maxLoad;
 
-    public function setMaxLoad(?float $short = null, ?float $mid = null, ?float $long = null): static
+    public function setMaxLoad(float $short = null, float $mid = null, float $long = null): static
     {
         $this->maxLoad = [$short, $mid, $long];
 
@@ -32,9 +32,13 @@ class CpuLoadCheck extends Check
         }
 
         foreach ($this->maxLoad as $index => $max) {
-            if (is_null($max)) continue;
+            if (is_null($max)) {
+                continue;
+            }
 
-            if ($index == count($load)) break;
+            if ($index == count($load)) {
+                break;
+            }
 
             if ($max < $actual = round($load[$index], 2)) {
                 return $result->failed(
