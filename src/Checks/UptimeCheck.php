@@ -3,8 +3,6 @@
 namespace Vormkracht10\LaravelOK\Checks;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Process;
-use RuntimeException;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Checks\Traits\ReadsBootTimes;
