@@ -3,21 +3,19 @@
 namespace Vormkracht10\LaravelOK\Checks;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Process;
-use RuntimeException;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Checks\Traits\ReadsBootTimes;
 
-class UptimeCheck extends Check
+class RebootCheck extends Check
 {
     use ReadsBootTimes;
 
-    protected Carbon $maxTimeSinceRebootTimestamp;
+    protected Carbon $minTimeSinceReboot;
 
-    public function setMaxTimeSinceRebootTimestamp(Carbon $time): static
+    public function setMinTimeSinceReboot(Carbon $timestamp): static
     {
-        $this->maxTimeSinceRebootTimestamp = $time;
+        $this->minTimeSinceReboot = $timestamp;
 
         return $this;
     }
@@ -28,12 +26,12 @@ class UptimeCheck extends Check
 
         $timestamp = $this->getSystemUptime();
 
-        if (! isset($this->maxTimeSinceRebootTimestamp)) {
+        if (! isset($this->minTimeSinceReboot)) {
             throw new \Exception('The max time since reboot was not set.');
         }
 
-        if ($this->maxTimeSinceRebootTimestamp > $timestamp) {
-            return $result->failed("Last reboot was at [{$timestamp->format('Y-m-d H:i')}], the maximum uptime for this server was set to [{$this->maxTimeSinceRebootTimestamp}]");
+        if ($this->minTimeSinceReboot < $timestamp) {
+            return $result->failed("Last reboot was at [{$this->minTimeSinceReboot->format('Y-m-d H:i')}], the minimum uptime for this server was set to {$this->minTimeSinceReboot->diffInMinutes()} minutes");
         }
 
         return $result->ok("Last reboot {$timestamp->diffInDays()} days and {$timestamp->diffInMinutes()} ago");
