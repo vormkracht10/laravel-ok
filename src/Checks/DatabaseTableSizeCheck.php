@@ -22,7 +22,7 @@ class DatabaseTableSizeCheck extends Check
         return $this;
     }
 
-    public function setTableSizeThresholds(array $config): static
+    public function setTableSizeThresholdsInMegabytes(array $config): static
     {
         $this->tableSizeThresholds = $config;
 
