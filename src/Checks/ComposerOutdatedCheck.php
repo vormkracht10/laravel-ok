@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Composer\Semver\Semver;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Process;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
@@ -20,8 +19,7 @@ class ComposerOutdatedCheck extends Check
     }
 
     /**
-     * @param array<string, array>|string[] $packages
-     * @return static
+     * @param  array<string, array>|string[]  $packages
      */
     public function include(array $packages): static
     {
@@ -35,8 +33,7 @@ class ComposerOutdatedCheck extends Check
     }
 
     /**
-     * @param array<int, string> $packages
-     * @return static
+     * @param  array<int, string>  $packages
      */
     public function exclude(array $packages): static
     {
@@ -82,9 +79,13 @@ class ComposerOutdatedCheck extends Check
         $failed = collect();
 
         foreach ($this->packages as $package => $include) {
-            if (! $include || ! isset($outdated[$package])) continue;
+            if (! $include || ! isset($outdated[$package])) {
+                continue;
+            }
 
-            if ($this->versions[$package][$outdated[$package]['status']] === false) continue;
+            if ($this->versions[$package][$outdated[$package]['status']] === false) {
+                continue;
+            }
 
             $failed[$package] = $outdated[$package];
         }
