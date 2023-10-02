@@ -27,7 +27,7 @@ class RebootCheck extends Check
         $timestamp = $this->getSystemUptime();
 
         if (! isset($this->minTimeSinceReboot)) {
-            throw new \Exception('The max time since reboot was not set.');
+            throw new \Exception('The minimum time since reboot was not set.');
         }
 
         if ($this->minTimeSinceReboot < $timestamp) {
