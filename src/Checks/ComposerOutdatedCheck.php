@@ -41,8 +41,6 @@ class ComposerOutdatedCheck extends Check
             fn ($package) => [$package => false],
         );
 
-        $packages->each(fn ($c) => print $c);
-
         $this->packages = $this->packages->merge($packages);
 
         return $this;
