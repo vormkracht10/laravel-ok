@@ -23,6 +23,8 @@ class ChecksForElementOnPage extends Check
 
     protected ?string $text = null;
 
+    protected ?string $containsText = null;
+
     protected int $timeout = 1;
 
     protected int $retryTimes = 1;
@@ -40,6 +42,13 @@ class ChecksForElementOnPage extends Check
     public function element(string $element): self
     {
         $this->element = $element;
+
+        return $this;
+    }
+
+    public function containsText(string $text): self
+    {
+        $this->containsText = $text;
 
         return $this;
     }
@@ -88,9 +97,9 @@ class ChecksForElementOnPage extends Check
             }
         }
 
-        if (! is_null($this->attribute) && ! is_null($this->text)) {
+        if (! is_null($this->containsText)) {
             foreach ($element as $e) {
-                if (str_contains($e->textContent, $this->text)) {
+                if (str_contains($e->textContent, $this->containsText)) {
                     return true;
                 }
             }
