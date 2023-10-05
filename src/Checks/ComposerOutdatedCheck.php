@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Process;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
@@ -37,7 +36,7 @@ class ComposerOutdatedCheck extends Check
     }
 
     /**
-     * @param array<string, SemverLevel> $versions
+     * @param  array<string, SemverLevel>  $versions
      */
     public function versions(array $versions): static
     {
