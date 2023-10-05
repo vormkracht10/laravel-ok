@@ -2,24 +2,52 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Process;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Vormkracht10\LaravelOK\Enums\SemverLevel;
 
 class ComposerOutdatedCheck extends Check
 {
+    protected SemverLevel $globalLevel = SemverLevel::All;
+
     protected Collection $packages;
 
-    protected Collection $versions;
+    protected array $versions;
 
     public function __construct()
     {
         $this->packages = new Collection;
     }
 
+    public function reportOnlyMajor(): static
+    {
+        $this->globalLevel = SemverLevel::Major;
+
+        return $this;
+    }
+
+    public function reportOnlyMinor(): static
+    {
+        $this->globalLevel = SemverLevel::Minor;
+
+        return $this;
+    }
+
     /**
-     * @param  array<string, array>|string[]  $packages
+     * @param array<string, SemverLevel> $versions
+     */
+    public function versions(array $versions): static
+    {
+        $this->versions = $versions;
+
+        return $this;
+    }
+
+    /**
+     * @param  array<int, string>  $packages
      */
     public function include(array $packages): static
     {
@@ -42,18 +70,6 @@ class ComposerOutdatedCheck extends Check
         );
 
         $this->packages = $this->packages->merge($packages);
-
-        return $this;
-    }
-
-    public function checkVersionStatus(array $versions): static
-    {
-        $versions = collect($versions)->map(fn ($config) => [
-            'major' => $config['major'] ?? true,
-            'minor' => $config['minor'] ?? true,
-        ]);
-
-        $this->versions = $versions;
 
         return $this;
     }
@@ -81,7 +97,11 @@ class ComposerOutdatedCheck extends Check
                 continue;
             }
 
-            if ($this->versions[$package][$outdated[$package]['status']] === false) {
+            $actual = $outdated[$package]['status'];
+
+            $level = $this->versions[$package] ?? $this->globalLevel;
+
+            if ($actual !== $level && $level !== SemverLevel::All) {
                 continue;
             }
 
@@ -118,8 +138,8 @@ class ComposerOutdatedCheck extends Check
                 'current' => $meta['version'],
                 'latest' => $meta['latest'],
                 'status' => match ($meta['latest-status']) {
-                    'semver-safe-update' => 'minor',
-                    'update-possible' => 'major',
+                    'semver-safe-update' => SemverLevel::Minor,
+                    'update-possible' => SemverLevel::Major,
                     default => null,
                 },
             ]]);
