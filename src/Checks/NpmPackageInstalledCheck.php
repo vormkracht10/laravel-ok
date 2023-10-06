@@ -43,7 +43,7 @@ class NpmPackageInstalledCheck extends Check
         return $result->failed("The following packages are missing: {$missingPackages}");
     }
 
-    protected function data()
+    protected function data(): array
     {
         if (count($this->with) > 0) {
             return $this->with['dependencies'];
@@ -56,6 +56,6 @@ class NpmPackageInstalledCheck extends Check
 
         $json = json_decode($output, true);
 
-        return $json['dependencies'];
+        return $json['dependencies'] ?? [];
     }
 }
