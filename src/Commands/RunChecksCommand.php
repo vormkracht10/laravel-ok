@@ -36,9 +36,7 @@ class RunChecksCommand extends Command
     {
         return app(OK::class)
             ->configuredChecks()
-            ->map(function (mixed $check) {
-                return is_string($check) ? app($check) : $check;
-            })
+            ->map(fn ($check) => is_string($check) ? app($check) : $check)
             ->map(function (Check $check): Result {
                 return $check->shouldRun()
                     ? $this->runCheck($check)

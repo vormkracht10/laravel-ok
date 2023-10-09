@@ -2,6 +2,7 @@
 
 namespace Vormkracht10\LaravelOK\Checks\Base;
 
+use Carbon\Carbon;
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
@@ -24,6 +25,10 @@ abstract class Check
 
     protected string $expression = '* * * * *';
 
+    protected int $repeatSeconds;
+
+    protected Carbon $reportTimeout;
+
     protected ?string $name = null;
 
     protected ?string $message = null;
@@ -34,10 +39,6 @@ abstract class Check
 
     protected int $timesToFailWithoutNotification = 1;
 
-    public function __construct()
-    {
-    }
-
     public static function config(): static
     {
         $instance = app(static::class);
@@ -45,6 +46,16 @@ abstract class Check
         $instance->everyMinute();
 
         return $instance;
+    }
+
+    public function getExpression(): string
+    {
+        return $this->expression;
+    }
+
+    public function getRepeatSeconds(): int
+    {
+        return $this->repeatSeconds;
     }
 
     public function name(string $name): self
@@ -107,5 +118,17 @@ abstract class Check
     public function markAsCrashed(): Result
     {
         return new Result(Status::CRASHED);
+    }
+
+    public function getReportTimeout(): Carbon
+    {
+        return $this->reportTimeout;
+    }
+
+    public function reportTimeout(Carbon $minimumDelay): static
+    {
+        $this->reportTimeout = $minimumDelay;
+
+        return $this;
     }
 }
