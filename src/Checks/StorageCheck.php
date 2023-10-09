@@ -10,7 +10,7 @@ use Vormkracht10\LaravelOK\Checks\Base\Result;
 
 class StorageCheck extends Check
 {
-    protected ?string $path;
+    protected ?string $path = null;
 
     protected array $disks = [];
 
