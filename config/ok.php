@@ -5,11 +5,15 @@ use Vormkracht10\LaravelOK\Notifications\Notifiable;
 
 return [
     'notifications' => [
-        'enabled' => env('LARAVEL_OK_NOTIFICATIONS_ENABLED', true),
+        'enabled' => env('OK_NOTIFICATIONS_ENABLED', true),
 
         'failed_notification' => CheckFailedNotification::class,
 
         'notifiable' => Notifiable::class,
+
+        'interval_in_minutes' => env('OK_NOTIFICATION_INTERVAL', 60 * 60 * 24),
+
+        'cache_driver' => env('OK_CACHE_DRIVER', 'file'),
 
         'via' => [
             // 'discord' => [

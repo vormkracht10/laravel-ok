@@ -12,8 +12,6 @@ class PermissionCheck extends Check
 
     public function __construct(array $configured = [])
     {
-        parent::__construct();
-
         $this->configured = $configured;
     }
 

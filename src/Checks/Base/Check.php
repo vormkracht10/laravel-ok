@@ -24,6 +24,10 @@ abstract class Check
 
     protected string $expression = '* * * * *';
 
+    protected int $repeatSeconds;
+
+    protected int $notificationIntervalInMinutes;
+
     protected ?string $name = null;
 
     protected ?string $message = null;
@@ -34,10 +38,6 @@ abstract class Check
 
     protected int $timesToFailWithoutNotification = 1;
 
-    public function __construct()
-    {
-    }
-
     public static function config(): static
     {
         $instance = app(static::class);
@@ -45,6 +45,16 @@ abstract class Check
         $instance->everyMinute();
 
         return $instance;
+    }
+
+    public function getExpression(): string
+    {
+        return $this->expression;
+    }
+
+    public function getRepeatSeconds(): int
+    {
+        return $this->repeatSeconds;
     }
 
     public function name(string $name): self
@@ -107,5 +117,17 @@ abstract class Check
     public function markAsCrashed(): Result
     {
         return new Result(Status::CRASHED);
+    }
+
+    public function getNotificationInterval(): int
+    {
+        return $this->notificationIntervalInMinutes ?? config('ok.notifications.interval_in_minutes');
+    }
+
+    public function setNotificationInterval(int $intervalInMinutes): static
+    {
+        $this->notificationIntervalInMinutes = $intervalInMinutes;
+
+        return $this;
     }
 }
