@@ -27,7 +27,7 @@ abstract class Check
 
     protected int $repeatSeconds;
 
-    protected Carbon $reportTimeout;
+    protected Carbon $reportInterval;
 
     protected ?string $name = null;
 
@@ -120,14 +120,14 @@ abstract class Check
         return new Result(Status::CRASHED);
     }
 
-    public function getReportTimeout(): Carbon
+    public function getReportInterval(): Carbon
     {
-        return $this->reportTimeout;
+        return $this->reportInterval ?? config('ok.notifications.interval', Carbon::now()->subMinutes(30));
     }
 
-    public function reportTimeout(Carbon $minimumDelay): static
+    public function reportInterval(Carbon $minimumDelay): static
     {
-        $this->reportTimeout = $minimumDelay;
+        $this->reportInterval = $minimumDelay;
 
         return $this;
     }

@@ -21,7 +21,7 @@ class SendCheckFailedNotification
 
         $failedNotificationClass = config('ok.notifications.failed_notification');
 
-        $notification = (new $failedNotificationClass($event->check, $event->result));
+        $notification = new $failedNotificationClass($event->check, $event->result);
 
         $notifiable->notify($notification);
 
@@ -37,8 +37,8 @@ class SendCheckFailedNotification
     {
         $lastRun = OK::lastRun($check::class);
 
-        $timeout = $check->getReportTimeout();
+        $interval = $check->getReportInterval();
 
-        return $lastRun < $timeout;
+        return $lastRun < $interval;
     }
 }

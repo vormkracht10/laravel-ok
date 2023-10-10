@@ -11,6 +11,8 @@ return [
 
         'notifiable' => Notifiable::class,
 
+        'interval' => now()->subMinutes(15),
+
         'via' => [
             // 'discord' => [
             //     'channel' => 123456790,
