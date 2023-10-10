@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks\Base;
 
-use Carbon\Carbon;
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
@@ -27,7 +26,7 @@ abstract class Check
 
     protected int $repeatSeconds;
 
-    protected Carbon $reportInterval;
+    protected int $notificationIntervalInMinutes;
 
     protected ?string $name = null;
 
@@ -120,14 +119,14 @@ abstract class Check
         return new Result(Status::CRASHED);
     }
 
-    public function getReportInterval(): Carbon
+    public function getNotificationInterval(): int
     {
-        return $this->reportInterval ?? config('ok.notifications.interval', Carbon::now()->subMinutes(30));
+        return $this->notificationIntervalInMinutes ?? config('ok.notifications.interval_in_minutes');
     }
 
-    public function setNotificationInterval(Carbon $minimumDelay): static
+    public function setNotificationInterval(int $intervalInMinutes): static
     {
-        $this->reportInterval = $minimumDelay;
+        $this->notificationIntervalInMinutes = $intervalInMinutes;
 
         return $this;
     }
