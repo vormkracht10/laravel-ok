@@ -125,7 +125,7 @@ abstract class Check
         return $this->reportInterval ?? config('ok.notifications.interval', Carbon::now()->subMinutes(30));
     }
 
-    public function reportInterval(Carbon $minimumDelay): static
+    public function setNotificationInterval(Carbon $minimumDelay): static
     {
         $this->reportInterval = $minimumDelay;
 
