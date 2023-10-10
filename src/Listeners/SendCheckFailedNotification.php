@@ -25,7 +25,7 @@ class SendCheckFailedNotification
 
         $notifiable->notify($notification);
 
-        $this->setNotificationTimestamp($check);
+        $this->setNotificationTime($check);
     }
 
     protected function setNotificationTime(Check $check): int
