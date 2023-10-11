@@ -21,6 +21,7 @@ class CheckFailedNotification extends Notification implements ShouldQueue
 
     public function __construct(protected Check $check, protected Result $result)
     {
+        //
     }
 
     public function getDriver(string $alias): string
