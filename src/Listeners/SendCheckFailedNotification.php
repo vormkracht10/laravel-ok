@@ -28,7 +28,7 @@ class SendCheckFailedNotification
         $this->setNotificationTime($event->check);
     }
 
-    protected function setNotificationTime(Check $check): int
+    protected function setNotificationTime(Check $check): bool
     {
         return Cache::driver('file')->forever(
             'laravel-ok::notifications::'.$check::class,
