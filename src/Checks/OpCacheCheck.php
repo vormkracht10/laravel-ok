@@ -75,7 +75,6 @@ class OpCacheCheck extends Check
 
         $configuration = opcache_get_status()['jit'];
 
-        return $configuration['enabled'] && $configuration['on']
-            ?? false;
+        return $configuration['enabled'] && $configuration['on'];
     }
 }
