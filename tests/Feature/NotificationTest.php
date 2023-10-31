@@ -1,12 +1,12 @@
 <?php
 
-
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
 use Vormkracht10\LaravelOK\Notifications\CheckFailedNotification;
+
 use function Pest\Laravel\travel;
 
 $failed = new class extends Check

@@ -11,7 +11,7 @@ return [
 
         'notifiable' => Notifiable::class,
 
-        'interval_in_minutes' => env('OK_NOTIFICATION_INTERVAL', 60 * 60 * 24),
+        'interval_in_minutes' => env('OK_NOTIFICATION_INTERVAL', 60 * 24),
 
         'cache_driver' => env('OK_CACHE_DRIVER', 'file'),
 
