@@ -2,6 +2,7 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
+use Exception;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
@@ -20,7 +21,7 @@ class MemoryUsageCheck extends Check
 
     public function getSystemMemInfo()
     {
-        $data = explode("\n", trim(file_get_contents('/proc/meminfo')));
+        $data = explode("\n", trim(@file_get_contents('/proc/meminfo') or throw new Exception('Failed to read memory')));
         $memInfo = [];
 
         foreach ($data as $line) {
@@ -35,9 +36,19 @@ class MemoryUsageCheck extends Check
     {
         $result = Result::new();
 
+        if (PHP_OS !== 'Linux') {
+            return $result->failed('The MemoryUsageCheck only works on Linux.');
+        }
+
         $data = $this->getSystemMemInfo();
 
-        $usedPercentage = round(100 - (($data['MemAvailable'] / $data['MemTotal']) * 100), 2);
+        $usedPercentage = (int) $data['MemTotal'] !== 0
+            ? round(100 - (($data['MemAvailable'] / $data['MemTotal']) * 100), 2)
+            : false;
+
+        if ($usedPercentage === false) {
+            return $result->failed('Failed to measure memory usage.');
+        }
 
         if ($usedPercentage > $this->limit) {
             return $result->failed("Memory usage is at {$usedPercentage}%, limit is configured to {$this->limit}%");
