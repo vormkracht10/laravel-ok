@@ -21,7 +21,7 @@ class MemoryUsageCheck extends Check
 
     public function getSystemMemInfo()
     {
-        $data = explode("\n", trim(@file_get_contents('/proc/meminfo') or throw new Exception('Failed to read memory')));
+        $data = explode("\n", file_get_contents('/proc/meminfo'));
         $memInfo = [];
 
         foreach ($data as $line) {
