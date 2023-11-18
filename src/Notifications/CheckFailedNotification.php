@@ -53,12 +53,16 @@ class CheckFailedNotification extends Notification implements ShouldQueue
             '🔥', '🧯', '‼️', '⁉️', '🔴', '📣', '😅', '🥵',
         ]);
 
-        return $emoji.' '.$this->result->getMessage();
+        return $emoji.' '.$this->getMessage().' on **'.config('app.name').'** ('.app()->environment().')';
     }
 
     public function getMessage(): string
     {
-        return $this->result->getMessage();
+        if ($this->result->getMessage()) {
+            return trim($this->result->getMessage(), '.');
+        }
+
+        return $this->check->getName().' check failed';
     }
 
     public function toMail(): MailMessage
@@ -77,21 +81,42 @@ class CheckFailedNotification extends Notification implements ShouldQueue
 
     public function toDiscord(): DiscordMessage
     {
-        return DiscordMessage::create(embed: [
-            'title' => $this->getTitle(),
-            'color' => 0xF44336,
-        ]);
+        return (new DiscordMessage)
+            ->body($this->getTitle())
+            ->embed([
+                'title' => $this->getMessage(),
+                'color' => 0xF44336,
+                'fields' => [
+                    [
+                        'name' => 'App',
+                        'value' => config('app.name'),
+                        'inline' => false,
+                    ],
+                    [
+                        'name' => 'Environment',
+                        'value' => app()->environment(),
+                        'inline' => false,
+                    ],
+                    [
+                        'name' => 'Host',
+                        'value' => gethostname(),
+                        'inline' => false,
+                    ],
+                ],
+                'url' => config('app.url'),
+            ]);
     }
 
     public function toSlack(): SlackMessage
     {
         return (new SlackMessage)
-            ->content($this->getMessage());
+            ->content($this->getTitle())
+            ->error();
     }
 
     public function toTelegram(): TelegramMessage
     {
         return TelegramMessage::create()
-            ->content($this->getMessage());
+            ->content($this->getTitle());
     }
 }
