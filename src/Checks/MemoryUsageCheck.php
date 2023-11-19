@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\LaravelOK\Checks;
 
-use Exception;
 use Vormkracht10\LaravelOK\Checks\Base\Check;
 use Vormkracht10\LaravelOK\Checks\Base\Result;
 
