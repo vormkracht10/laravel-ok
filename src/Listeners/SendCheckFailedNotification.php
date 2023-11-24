@@ -9,7 +9,7 @@ use Vormkracht10\LaravelOK\Events\CheckFailed;
 
 class SendCheckFailedNotification
 {
-    public function handle(CheckFailed $event)
+    public function handle(CheckFailed $event): void
     {
         if (! $this->shouldSendNotification($event->check)) {
             return;

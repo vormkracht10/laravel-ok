@@ -35,7 +35,7 @@ class LaravelOKServiceProvider extends PackageServiceProvider
             });
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         $this->silenceQueueHeartbeatJob();
     }

@@ -2,6 +2,8 @@
 
 namespace Vormkracht10\LaravelOK;
 
+use Illuminate\Support\Collection;
+
 class OK
 {
     protected array $checks = [];
@@ -13,7 +15,7 @@ class OK
         return $this;
     }
 
-    public function configuredChecks()
+    public function configuredChecks(): Collection
     {
         return collect($this->checks);
     }
