@@ -137,7 +137,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 -   [Mark van Eijk](https://github.com/markvaneijk)
 -   [Bas van Dinther](https://github.com/baspa)
--   [David den Haan](https://github.com/dulkoss)
+-   [David den Haan](https://github.com/daviddenhaan)
 -   [All Contributors](../../contributors)
 
 ## License
