@@ -90,71 +90,43 @@ php artisan ok:check
 
 ## Available checks
 
-**Cache Check**: Check whether reading and writing to the cache is possible.
+- **Cache Check**: Check whether reading and writing to the cache is possible.
+- **Composer Outdated Check**: Checks whether there are outdated packages in your project and informs you of the findings.
+- **Composer Audit Check**: Checks whether there are any security vulnerabilities in your composer dependencies.
+- **CPU Load Check**: Checks whether the total CPU load is above a certain percentage on a short, mid and long term.
+- **Config Cache Check**: Checks whether the config is cached.
+- **Database Check**: Checks whether a connection can be established on the configured connection.
+- **Database Connection Count Check**: Checks whether the database's connection count exceeds a configurable limit.
+- **Database Size Check**: Checks whether the database's data exceeds a configurable size limit.
+- **Database Table Size Check**: Does the same as the Database Size Check but for a specific table.
+- **Debug Mode Check**: Checks whether debug mode is enabled.
+- **Directory Check**: Checks whether the configured directories exist.
+- **Disk Space Check**: Checks whether the disk space is below a certain threshold.
+- **DotEnv Check**: Checks whether the configured environment variables are accessible in the application.
+- **Environment Check**: Checks whether the current environment matches the configured environment type.
+- **Event Cache Check**: Checks whether events are cached.
+- **Extension Check**: Checks whether the configured PHP extensions are loaded.
+- **File Check**: Does the same as the Directory Check but for files.
+- **Horizon Check**: Checks whether Horizon is running.
+- **Memory Usage Check**: Checks whether the total memory usage exceeds a configurable limit in the form of a percentage. **(LINUX ONLY)**
+- **NPM Audit Check**: Checks whether there are any security vulnerabilities in your npm dependencies.
+- **NPM Installed Package Check**: Checks whether a certain npm package is installed.
+- **OPCache Check**: Checks whether OP cache and optionally the JIT compiler are configured and running.
+- **Permission Check**: Checks whether the configured filesystem items have the correct permissions for the current user.
+- **Ping check**: Checks whether the application can ping the specified address, if the address is not specified it defaults to `www.google.com`.
+- **Process Count Check**: Checks whether the configured programs are exceeding the configured process count.
+- **Queue Check**: Checks whether the queue is running.
+- **Reboot Check**: Checks whether the server has rebooted recently.
+- **Redis Check**: Checks whether the application can connect to the configured redis connections.
+- **Redis Memory Usage Check**: Checks whether the Redis instance is exceeding a configured amount of memory usage.
+- **Route Cache Check**: Checks whether routes are cached.
+- **Scheduler Check**: Checks whether the scheduler has is still online and running jobs.
+- **Storage Check**: Checks whether the configured disks can be written to and read from.
+- **UptimeCheck**: Checks whether the server's uptime exceeds a configured maximum.
 
-**Composer Outdated Check**: Checks whether there are outdated packages in your project and informs you of the findings.
+## Inspired by
 
-**Composer Audit Check**: Checks whether there are any security vulnerabilities in your composer dependencies.
-
-**CPU Load Check**: Checks whether the total CPU load is above a certain percentage on a short, mid and long term.
-
-**Config Cache Check**: Checks whether the config is cached.
-
-**Database Check**: Checks whether a connection can be established on the configured connection.
-
-**Database Connection Count Check**: Checks whether the database's connection count exceeds a configurable limit.
-
-**Database Size Check**: Checks whether the database's data exceeds a configurable size limit.
-
-**Database Table Size Check**: Does the same as the Database Size Check but for a specific table.
-
-**Debug Mode Check**: Checks whether debug mode is enabled.
-
-**Directory Check**: Checks whether the configured directories exist.
-
-**Disk Space Check**: Checks whether the disk space is below a certain threshold.
-
-**DotEnv Check**: Checks whether the configured environment variables are accessible in the application.
-
-**Environment Check**: Checks whether the current environment matches the configured environment type.
-
-**Event Cache Check**: Checks whether events are cached.
-
-**Extension Check**: Checks whether the configured PHP extensions are loaded.
-
-**File Check**: Does the same as the Directory Check but for files.
-
-**Horizon Check**: Checks whether Horizon is running.
-
-**Memory Usage Check**: Checks whether the total memory usage exceeds a configurable limit in the form of a percentage. **(LINUX ONLY)**
-
-**NPM Audit Check**: Checks whether there are any security vulnerabilities in your npm dependencies.
-
-**NPM Installed Package Check**: Checks whether a certain npm package is installed.
-
-**OPCache Check**: Checks whether OP cache and optionally the JIT compiler are configured and running.
-
-**Permission Check**: Checks whether the configured filesystem items have the correct permissions for the current user.
-
-**Ping check**: Checks whether the application can ping the specified address, if the address is not specified it defaults to `www.google.com`.
-
-**Process Count Check**: Checks whether the configured programs are exceeding the configured process count.
-
-**Queue Check**: Checks whether the queue is running.
-
-**Reboot Check**: Checks whether the server has rebooted recently.
-
-**Redis Check**: Checks whether the application can connect to the configured redis connections.
-
-**Redis Memory Usage Check**: Checks whether the Redis instance is exceeding a configured amount of memory usage.
-
-**Route Cache Check**: Checks whether routes are cached.
-
-**Scheduler Check**: Checks whether the scheduler has is still online and running jobs.
-
-**Storage Check**: Checks whether the configured disks can be written to and read from.
-
-**UptimeCheck**: Checks whether the server's uptime exceeds a configured maximum.
+This package is inspired by [Laravel Health](https://github.com/spatie/laravel-health).
 
 ## Testing
 
@@ -180,3 +152,4 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+- 
