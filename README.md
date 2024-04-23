@@ -108,7 +108,7 @@ php artisan ok:check
 - **Extension Check**: Checks whether the configured PHP extensions are loaded.
 - **File Check**: Does the same as the Directory Check but for files.
 - **Horizon Check**: Checks whether Horizon is running.
-- **Memory Usage Check**: Checks whether the total memory usage exceeds a configurable limit in the form of a percentage. **(LINUX ONLY)**
+- **Memory Usage Check**: Checks whether the total memory usage exceeds a configurable limit in the form of a percentage.
 - **NPM Audit Check**: Checks whether there are any security vulnerabilities in your npm dependencies.
 - **NPM Installed Package Check**: Checks whether a certain npm package is installed.
 - **OPCache Check**: Checks whether OP cache and optionally the JIT compiler are configured and running.
