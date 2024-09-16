@@ -2,16 +2,19 @@
 
 namespace Vormkracht10\LaravelOK;
 
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Vormkracht10\LaravelOK\Facades\OK;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\LaravelOK\Commands\DispatchQueueCheckJobsCommand;
-use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
-use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
-use Vormkracht10\LaravelOK\Jobs\QueueHeartbeatJob;
-use Vormkracht10\LaravelOK\Listeners\SendCheckFailedNotification;
+use Vormkracht10\LaravelOK\Interfaces\Scheduled;
 use Vormkracht10\LaravelOK\Commands\StatusCommand;
+use Vormkracht10\LaravelOK\Jobs\QueueHeartbeatJob;
+use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
+use Vormkracht10\LaravelOK\Listeners\SendCheckFailedNotification;
+use Vormkracht10\LaravelOK\Commands\DispatchQueueCheckJobsCommand;
 
 class LaravelOKServiceProvider extends PackageServiceProvider
 {
@@ -33,6 +36,16 @@ class LaravelOKServiceProvider extends PackageServiceProvider
                     ->copyAndRegisterServiceProviderInApp()
                     ->askToStarRepoOnGitHub('vormkracht10/laravel-ok');
             });
+    }
+
+    public function bootingPackage()
+    {
+        $this->callAfterResolving(
+            Schedule::class,
+            fn(Schedule $schedule) => collect(OK::configuredChecks())
+                ->filter(fn($check) => is_a($check, Scheduled::class))
+                ->each(fn($check) => $check->schedule($schedule->job($check)))
+        );
     }
 
     public function packageBooted(): void

@@ -2,13 +2,22 @@
 
 namespace Vormkracht10\LaravelOK\Checks\Base;
 
+use Exception;
+use ReflectionClass;
 use Cron\CronExpression;
-use Illuminate\Console\Scheduling\ManagesFrequencies;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Cache;
 use Vormkracht10\LaravelOK\Enums\Status;
+use Vormkracht10\LaravelOK\Events\CheckEnded;
+use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Vormkracht10\LaravelOK\Events\CheckFailed;
+use Vormkracht10\LaravelOK\Events\CheckStarted;
+use Vormkracht10\LaravelOK\Interfaces\Scheduled;
+use Illuminate\Console\Scheduling\ManagesFrequencies;
+use Vormkracht10\LaravelOK\Exceptions\CheckDidNotComplete;
 
-abstract class Check
+abstract class Check implements Scheduled
 {
     use ManagesFrequencies;
 
@@ -38,6 +47,11 @@ abstract class Check
 
     protected int $timesToFailWithoutNotification = 1;
 
+    public function __invoke()
+    {
+        return $this->handle();
+    }
+
     public static function config(): static
     {
         $instance = app(static::class);
@@ -57,6 +71,25 @@ abstract class Check
         return $this->repeatSeconds;
     }
 
+    /// Default implementation for the `\Scheduled::schedule` method.
+    /** @param CallbackEvent $callback */
+    public static function schedule($callback)
+    {
+        if (!is_a(static::class, Scheduled::class, true)) {
+            throw new \Exception("Can't schedule a cacher that does not implement the [" . Scheduled::class . '] interface');
+        }
+
+        $reflection = new ReflectionClass(static::class);
+
+        $concrete = $reflection->getProperty('expression')->getDefaultValue();
+
+        if (is_null($concrete)) {
+            throw new \Exception('Either the Cached::$expression property or the [' . __METHOD__ . '] method must be overridden by the user.');
+        }
+
+        $callback->cron($concrete);
+    }
+
     public function name(string $name): self
     {
         $this->name = $name;
@@ -66,13 +99,12 @@ abstract class Check
 
     public function getName(): string
     {
-        if ($this->name) {
-            return $this->name;
-        }
+        return (new ReflectionClass($this))->getName();
+    }
 
-        $baseName = class_basename(static::class);
-
-        return Str::of($baseName)->beforeLast('Check');
+    public function getShortName(): string
+    {
+        return (new ReflectionClass($this))->getShortName();
     }
 
     public function message(string $message): self
@@ -129,5 +161,50 @@ abstract class Check
         $this->notificationIntervalInMinutes = $intervalInMinutes;
 
         return $this;
+    }
+
+    public function getStatusCacheKey(): string
+    {
+        return 'ok::' . strtolower(str_replace('\\', '.', $this->getName()));
+    }
+
+    public function getLastUpdatedAt()
+    {
+        $cache = Cache::get($this->getStatusCacheKey());
+
+        return $cache?->updated_at->diffForHumans();
+    }
+
+    final public function handle($event = null): Result
+    {
+        event(new CheckStarted($this));
+
+        try {
+            $result = $this->run();
+        } catch (Exception $exception) {
+            $exception = CheckDidNotComplete::make($this, $exception);
+
+            report($exception);
+
+            $result = $this->markAsCrashed();
+        }
+
+        $result->check($this)
+            ->endedAt(now());
+
+        if (
+            $result->status === Status::FAILED ||
+            $result->status === Status::CRASHED
+        ) {
+            event(new CheckFailed($this, $result));
+        }
+
+        event(new CheckEnded($this, $result));
+
+        Cache::forever($this->getStatusCacheKey(), (object) [
+            'updated_at' => now(),
+        ]);
+
+        return $result;
     }
 }

@@ -11,7 +11,7 @@ use Vormkracht10\LaravelOK\Events\CheckEnded;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
 use Vormkracht10\LaravelOK\Events\CheckStarted;
 use Vormkracht10\LaravelOK\Exceptions\CheckDidNotComplete;
-use Vormkracht10\LaravelOK\OK;
+use Vormkracht10\LaravelOK\Facades\OK;
 
 class RunChecksCommand extends Command
 {
@@ -34,9 +34,8 @@ class RunChecksCommand extends Command
 
     public function runChecks()
     {
-        return app(OK::class)
-            ->configuredChecks()
-            ->map(fn ($check) => is_string($check) ? app($check) : $check)
+        return OK::configuredChecks()
+            ->map(fn($check) => is_string($check) ? app($check) : $check)
             ->map(function (Check $check): Result {
                 return $check->shouldRun()
                     ? $this->runCheck($check)
@@ -46,35 +45,11 @@ class RunChecksCommand extends Command
 
     public function runCheck(Check $check)
     {
-        event(new CheckStarted($check));
+        $this->output->write("<comment>Running check: {$check->getName()}...</comment> ", false);
 
-        try {
-            $this->output->write("<comment>Running check: {$check->getName()}...</comment> ", false);
-
-            $result = $check->run();
-        } catch (Exception $exception) {
-            $exception = CheckDidNotComplete::make($check, $exception);
-
-            report($exception);
-
-            $this->thrownExceptions[] = $exception;
-
-            $result = $check->markAsCrashed();
-        }
-
-        $result->check($check)
-            ->endedAt(now());
+        $result = $check();
 
         $this->outputResultToConsole($result, $exception ?? null);
-
-        if (
-            $result->status === Status::FAILED ||
-            $result->status === Status::CRASHED
-        ) {
-            event(new CheckFailed($check, $result));
-        }
-
-        event(new CheckEnded($check, $result));
 
         return $result;
     }
