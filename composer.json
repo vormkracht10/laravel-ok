@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.1",
         "illuminate/contracts": "^10.0",
+        "lorisleiva/cron-translator": "^0.4.5",
         "mtdowling/cron-expression": "^1.2",
         "spatie/laravel-package-tools": "^1.14.0",
         "symfony/dom-crawler": "^6.2",

@@ -11,6 +11,7 @@ use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
 use Vormkracht10\LaravelOK\Events\CheckFailed;
 use Vormkracht10\LaravelOK\Jobs\QueueHeartbeatJob;
 use Vormkracht10\LaravelOK\Listeners\SendCheckFailedNotification;
+use Vormkracht10\LaravelOK\Commands\StatusCommand;
 
 class LaravelOKServiceProvider extends PackageServiceProvider
 {
@@ -19,17 +20,16 @@ class LaravelOKServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-ok')
             ->hasConfigFile()
-            // ->hasMigration('create_laravel_ok_table')
             ->hasCommands(
                 DispatchQueueCheckJobsCommand::class,
                 RunChecksCommand::class,
                 SchedulerHeartbeatCommand::class,
+                StatusCommand::class,
             )
             ->hasViews('ok')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    // ->publishMigrations()
                     ->copyAndRegisterServiceProviderInApp()
                     ->askToStarRepoOnGitHub('vormkracht10/laravel-ok');
             });
