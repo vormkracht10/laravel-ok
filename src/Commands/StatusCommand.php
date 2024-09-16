@@ -30,7 +30,7 @@ class StatusCommand extends Command
      */
     public function handle()
     {
-        $caches = OK::configuredChecks();
+        $checks = OK::configuredChecks();
 
         $frequencies = collect(app(Schedule::class)->events())
             ->mapWithKeys(function ($schedule) {
@@ -39,30 +39,20 @@ class StatusCommand extends Command
 
         $tableRows = [];
 
-        foreach ($caches as $c) {
-            $cache = $caches->current();
-            $parameters = $caches->getInfo();
-
+        foreach ($checks as $check) {
             if (
                 $this->option('filter') &&
-                ! str_contains(strtolower($cache->getName()), strtolower($this->option('filter')))
+                ! str_contains(strtolower($check->getName()), strtolower($this->option('filter')))
             ) {
                 continue;
             }
 
-            $cached = $cache->getMeta($parameters);
-
             $row = [
-                $cache->isCached($parameters) ? Emoji::checkMarkButton() : Emoji::crossMark(),
-                $cache->getName(),
-                $cached ? readable_size(strlen(serialize($cached))) : 'N/A',
-                $cached?->updated_at?->diffForHumans() ?: 'N/A',
-                $frequencies[$cache->getName()] ?? 'N/A',
+                Emoji::checkMarkButton(),
+                $check->getName(),
+                // $check?->updated_at?->diffForHumans() ?: 'N/A',
+                $frequencies[$check->getName()] ?? 'N/A',
             ];
-
-            if ($this->option('parameters')) {
-                $row[] = $this->parseParameters($parameters);
-            }
 
             $tableRows[] = $row;
             $tableRows[] = new TableSeparator();
@@ -71,22 +61,9 @@ class StatusCommand extends Command
         array_pop($tableRows);
 
         $this->table(
-            [null, 'Cache', 'Size', 'Last Updated', 'Frequency'] + ($this->option('parameters') ? ['Parameters'] : []),
+            [null, 'Check', 'Last Updated', 'Frequency'],
             $tableRows,
             'box',
         );
-    }
-
-    public function parseParameters($parameters)
-    {
-        $queryString = http_build_query($parameters);
-
-        return str_replace([
-            '=',
-            '&',
-        ], [
-            ': ',
-            ', ',
-        ], urldecode($queryString));
     }
 }
