@@ -1,9 +1,9 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 class EventCacheCheck extends Check
 {

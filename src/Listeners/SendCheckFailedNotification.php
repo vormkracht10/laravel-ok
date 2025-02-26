@@ -1,11 +1,11 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Listeners;
+namespace Backstage\Laravel\OK\Listeners;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Events\CheckFailed;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Events\CheckFailed;
 
 class SendCheckFailedNotification
 {

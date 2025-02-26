@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Commands;
+namespace Backstage\Laravel\OK\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\SchedulerCheck;
-use Vormkracht10\LaravelOK\Facades\OK;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\SchedulerCheck;
+use Backstage\Laravel\OK\Facades\OK;
 
 class SchedulerHeartbeatCommand extends Command
 {

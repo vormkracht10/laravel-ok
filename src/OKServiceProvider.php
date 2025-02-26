@@ -1,22 +1,22 @@
 <?php
 
-namespace Vormkracht10\LaravelOK;
+namespace Backstage\Laravel\OK;
 
-use Vormkracht10\LaravelOK\Facades\OK;
+use Backstage\Laravel\OK\Facades\OK;
 use Spatie\LaravelPackageTools\Package;
 use Illuminate\Console\Scheduling\Schedule;
-use Vormkracht10\LaravelOK\Events\CheckFailed;
-use Vormkracht10\LaravelOK\Interfaces\Scheduled;
-use Vormkracht10\LaravelOK\Commands\StatusCommand;
-use Vormkracht10\LaravelOK\Jobs\QueueHeartbeatJob;
-use Vormkracht10\LaravelOK\Commands\RunChecksCommand;
+use Backstage\Laravel\OK\Events\CheckFailed;
+use Backstage\Laravel\OK\Interfaces\Scheduled;
+use Backstage\Laravel\OK\Commands\StatusCommand;
+use Backstage\Laravel\OK\Jobs\QueueHeartbeatJob;
+use Backstage\Laravel\OK\Commands\RunChecksCommand;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Vormkracht10\LaravelOK\Commands\SchedulerHeartbeatCommand;
-use Vormkracht10\LaravelOK\Listeners\SendCheckFailedNotification;
-use Vormkracht10\LaravelOK\Commands\DispatchQueueCheckJobsCommand;
+use Backstage\Laravel\OK\Commands\SchedulerHeartbeatCommand;
+use Backstage\Laravel\OK\Listeners\SendCheckFailedNotification;
+use Backstage\Laravel\OK\Commands\DispatchQueueCheckJobsCommand;
 
-class LaravelOKServiceProvider extends PackageServiceProvider
+class OKServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -34,7 +34,7 @@ class LaravelOKServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->copyAndRegisterServiceProviderInApp()
-                    ->askToStarRepoOnGitHub('vormkracht10/laravel-ok');
+                    ->askToStarRepoOnGitHub('backstagephp/laravel-ok');
             });
     }
 

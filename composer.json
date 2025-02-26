@@ -1,17 +1,21 @@
 {
-    "name": "vormkracht10/laravel-ok",
+    "name": "backstage/laravel-ok",
     "description": "Is your Laravel app OK? Health checks running in production to ensure you can sleep well at night and be sure everything is still OK.",
     "keywords": [
+        "backstage",
         "vormkracht10",
+        "php",
         "laravel",
-        "laravel-ok"
+        "laravel-ok",
+        "monitoring",
+        "health"
     ],
-    "homepage": "https://github.com/vormkracht10/laravel-ok",
+    "homepage": "https://github.com/backstagephp/laravel-ok",
     "license": "MIT",
     "authors": [
         {
             "name": "Mark van Eijk",
-            "email": "mark@vormkracht10.nl",
+            "email": "mark@backstagephp.com",
             "role": "Developer"
         }
     ],
@@ -44,13 +48,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\LaravelOK\\": "src",
-            "Vormkracht10\\LaravelOK\\Database\\Factories\\": "database/factories"
+            "Backstage\\Laravel\\OK\\": "src",
+            "Backstage\\Laravel\\OK\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\LaravelOK\\Tests\\": "tests"
+            "Backstage\\Laravel\\OK\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -70,10 +74,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\LaravelOK\\LaravelOKServiceProvider"
+                "Backstage\\Laravel\\OK\\OKServiceProvider"
             ],
             "aliases": {
-                "LaravelOK": "Vormkracht10\\LaravelOK\\Facades\\LaravelOK"
+                "LaravelOK": "Backstage\\Laravel\\OK\\Facades\\LaravelOK"
             }
         }
     },

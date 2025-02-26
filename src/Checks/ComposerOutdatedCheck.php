@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Process;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Enums\SemverLevel;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Enums\SemverLevel;
 
 class ComposerOutdatedCheck extends Check
 {

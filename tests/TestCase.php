@@ -1,10 +1,10 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Tests;
+namespace Backstage\Laravel\OK\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Vormkracht10\LaravelOK\LaravelOKServiceProvider;
+use Backstage\Laravel\OK\OKServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Vormkracht10\\LaravelOK\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Backstage\\Laravel\\OK\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            LaravelOKServiceProvider::class,
+            OKServiceProvider::class,
         ];
     }
 

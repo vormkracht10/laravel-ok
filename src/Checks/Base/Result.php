@@ -1,9 +1,9 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Base;
+namespace Backstage\Laravel\OK\Checks\Base;
 
 use Carbon\CarbonInterface;
-use Vormkracht10\LaravelOK\Enums\Status;
+use Backstage\Laravel\OK\Enums\Status;
 
 class Result
 {

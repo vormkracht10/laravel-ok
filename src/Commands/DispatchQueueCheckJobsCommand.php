@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Commands;
+namespace Backstage\Laravel\OK\Commands;
 
 use Illuminate\Console\Command;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\QueueCheck;
-use Vormkracht10\LaravelOK\Facades\OK;
-use Vormkracht10\LaravelOK\Jobs\QueueHeartbeatJob;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\QueueCheck;
+use Backstage\Laravel\OK\Facades\OK;
+use Backstage\Laravel\OK\Jobs\QueueHeartbeatJob;
 
 class DispatchQueueCheckJobsCommand extends Command
 {

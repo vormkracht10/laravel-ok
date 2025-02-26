@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Notifications;
+namespace Backstage\Laravel\OK\Notifications;
 
 use Illuminate\Notifications\Notifiable as NotifiableTrait;
 

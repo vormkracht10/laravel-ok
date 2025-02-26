@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 class StorageCheck extends Check
 {

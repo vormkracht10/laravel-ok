@@ -2,7 +2,7 @@
 
 namespace App\Checks;
 
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 interface CheckInterface
 {

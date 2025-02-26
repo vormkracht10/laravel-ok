@@ -1,13 +1,13 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
 use Exception;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 use Psr\SimpleCache\InvalidArgumentException;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 class CacheCheck extends Check
 {

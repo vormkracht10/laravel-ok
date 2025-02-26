@@ -1,8 +1,8 @@
 <?php
 
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Checks\NpmPackageInstalledCheck;
-use Vormkracht10\LaravelOK\Enums\Status;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\NpmPackageInstalledCheck;
+use Backstage\Laravel\OK\Enums\Status;
 
 it('returns ok if all packages are installed', function () {
     $check = new NpmPackageInstalledCheck();

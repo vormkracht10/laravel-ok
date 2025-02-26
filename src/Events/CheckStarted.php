@@ -1,8 +1,8 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Events;
+namespace Backstage\Laravel\OK\Events;
 
-use Vormkracht10\LaravelOK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Check;
 
 class CheckStarted
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Audit;
+namespace Backstage\Laravel\OK\Checks\Audit;
 
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 final class ComposerAuditCheck extends AuditCheck
 {

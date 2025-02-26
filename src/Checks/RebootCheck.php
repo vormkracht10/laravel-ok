@@ -1,11 +1,11 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
 use Carbon\Carbon;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Checks\Traits\ReadsBootTimes;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Traits\ReadsBootTimes;
 
 class RebootCheck extends Check
 {

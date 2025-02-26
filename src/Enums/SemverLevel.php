@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Enums;
+namespace Backstage\Laravel\OK\Enums;
 
 enum SemverLevel: string
 {

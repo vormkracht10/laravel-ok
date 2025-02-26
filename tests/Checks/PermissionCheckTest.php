@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\File;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Checks\PermissionCheck;
-use Vormkracht10\LaravelOK\Enums\Status;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\PermissionCheck;
+use Backstage\Laravel\OK\Enums\Status;
 
 it('can check permissions for a file', function () {
     $filename = __DIR__.'/'.random_int(0, PHP_INT_MAX).'.txt';

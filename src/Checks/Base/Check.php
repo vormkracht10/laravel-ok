@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Base;
+namespace Backstage\Laravel\OK\Checks\Base;
 
 use Exception;
 use ReflectionClass;
@@ -8,14 +8,14 @@ use Cron\CronExpression;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Cache;
-use Vormkracht10\LaravelOK\Enums\Status;
-use Vormkracht10\LaravelOK\Events\CheckEnded;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Events\CheckFailed;
-use Vormkracht10\LaravelOK\Events\CheckStarted;
-use Vormkracht10\LaravelOK\Interfaces\Scheduled;
+use Backstage\Laravel\OK\Enums\Status;
+use Backstage\Laravel\OK\Events\CheckEnded;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Events\CheckFailed;
+use Backstage\Laravel\OK\Events\CheckStarted;
+use Backstage\Laravel\OK\Interfaces\Scheduled;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
-use Vormkracht10\LaravelOK\Exceptions\CheckDidNotComplete;
+use Backstage\Laravel\OK\Exceptions\CheckDidNotComplete;
 
 abstract class Check implements Scheduled
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Interfaces;
+namespace Backstage\Laravel\OK\Interfaces;
 
 use Illuminate\Console\Scheduling\CallbackEvent;
 

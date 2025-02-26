@@ -1,11 +1,11 @@
 # Is your Laravel app OK?
 
-[![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-ok)
-[![Tests](https://github.com/vormkracht10/laravel-ok/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-ok/actions/workflows/run-tests.yml)
-[![PHPStan](https://github.com/vormkracht10/laravel-ok/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/vormkracht10/laravel-ok/actions/workflows/phpstan.yml)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/vormkracht10/laravel-ok)
-![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/vormkracht10/laravel-ok)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/laravel-ok)
+[![Total Downloads](https://img.shields.io/packagist/dt/backstage/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/backstage/laravel-ok)
+[![Tests](https://github.com/backstagephp/laravel-ok/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/backstagephp/laravel-ok/actions/workflows/run-tests.yml)
+[![PHPStan](https://github.com/backstagephp/laravel-ok/actions/workflows/phpstan.yml/badge.svg?branch=main)](https://github.com/backstagephp/laravel-ok/actions/workflows/phpstan.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/backstagephp/laravel-ok)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/backstage/laravel-ok)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/backstage/laravel-ok.svg?style=flat-square)](https://packagist.org/packages/backstage/laravel-ok)
 
 Health checks made in production to ensure you can sleep well at night and be sure everything is still OK.
 
@@ -14,7 +14,7 @@ Health checks made in production to ensure you can sleep well at night and be su
 You can install the package via composer:
 
 ```bash
-composer require vormkracht10/laravel-ok
+composer require backstage/laravel-ok
 ```
 
 You can then install the package by using the `ok:install` Artisan command:
@@ -66,7 +66,7 @@ To register checks for your application, you need to register them in the `check
 
 ```php
 
-use Vormkracht10\LaravelOK\Facades\OK;
+use Backstage\Laravel\OK\Facades\OK;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -152,4 +152,4 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-- 
+-

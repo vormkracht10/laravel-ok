@@ -1,9 +1,9 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Exceptions;
+namespace Backstage\Laravel\OK\Exceptions;
 
 use Exception;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Check;
 
 class CheckDidNotComplete extends Exception
 {

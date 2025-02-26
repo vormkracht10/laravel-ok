@@ -1,11 +1,11 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks;
+namespace Backstage\Laravel\OK\Checks;
 
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 class HorizonCheck extends Check
 {

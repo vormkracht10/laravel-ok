@@ -1,7 +1,7 @@
 <?php
 
-use Vormkracht10\LaravelOK\Notifications\CheckFailedNotification;
-use Vormkracht10\LaravelOK\Notifications\Notifiable;
+use Backstage\Laravel\OK\Notifications\CheckFailedNotification;
+use Backstage\Laravel\OK\Notifications\Notifiable;
 
 return [
     'notifications' => [

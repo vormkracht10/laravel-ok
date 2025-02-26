@@ -1,17 +1,17 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Commands;
+namespace Backstage\Laravel\OK\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Enums\Status;
-use Vormkracht10\LaravelOK\Events\CheckEnded;
-use Vormkracht10\LaravelOK\Events\CheckFailed;
-use Vormkracht10\LaravelOK\Events\CheckStarted;
-use Vormkracht10\LaravelOK\Exceptions\CheckDidNotComplete;
-use Vormkracht10\LaravelOK\Facades\OK;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Enums\Status;
+use Backstage\Laravel\OK\Events\CheckEnded;
+use Backstage\Laravel\OK\Events\CheckFailed;
+use Backstage\Laravel\OK\Events\CheckStarted;
+use Backstage\Laravel\OK\Exceptions\CheckDidNotComplete;
+use Backstage\Laravel\OK\Facades\OK;
 
 class RunChecksCommand extends Command
 {

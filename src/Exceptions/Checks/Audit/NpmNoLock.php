@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Exceptions\Checks\Audit;
+namespace Backstage\Laravel\OK\Exceptions\Checks\Audit;
 
 use Exception;
 

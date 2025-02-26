@@ -1,13 +1,13 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Commands;
+namespace Backstage\Laravel\OK\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Lorisleiva\CronTranslator\CronTranslator;
 use Spatie\Emoji\Emoji;
 use Symfony\Component\Console\Helper\TableSeparator;
-use Vormkracht10\LaravelOK\Facades\OK;
+use Backstage\Laravel\OK\Facades\OK;
 
 class StatusCommand extends Command
 {

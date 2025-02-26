@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Events\CheckFailed;
-use Vormkracht10\LaravelOK\Notifications\CheckFailedNotification;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Events\CheckFailed;
+use Backstage\Laravel\OK\Notifications\CheckFailedNotification;
 
 use function Pest\Laravel\travel;
 

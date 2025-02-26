@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Process;
-use Vormkracht10\LaravelOK\Checks\Audit\NpmAuditCheck;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Enums\Status;
+use Backstage\Laravel\OK\Checks\Audit\NpmAuditCheck;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Enums\Status;
 
 it('passes when there\'s no vulnerabilities', function () {
     $dir = getcwd();

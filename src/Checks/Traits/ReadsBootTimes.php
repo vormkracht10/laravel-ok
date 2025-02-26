@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Traits;
+namespace Backstage\Laravel\OK\Checks\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Process;

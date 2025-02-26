@@ -1,15 +1,15 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Traits;
+namespace Backstage\Laravel\OK\Checks\Traits;
 
 use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Exceptions\InvalidCheck;
+use Backstage\Laravel\OK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Exceptions\InvalidCheck;
 
 class ChecksForElementOnPage extends Check
 {

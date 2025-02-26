@@ -1,13 +1,13 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Jobs;
+namespace Backstage\Laravel\OK\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Cache;
-use Vormkracht10\LaravelOK\Checks\QueueCheck;
+use Backstage\Laravel\OK\Checks\QueueCheck;
 
 class QueueHeartbeatJob implements ShouldQueue
 {

@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Process;
-use Vormkracht10\LaravelOK\Checks\Audit\ComposerAuditCheck;
-use Vormkracht10\LaravelOK\Checks\Base\Result;
-use Vormkracht10\LaravelOK\Enums\Status;
+use Backstage\Laravel\OK\Checks\Audit\ComposerAuditCheck;
+use Backstage\Laravel\OK\Checks\Base\Result;
+use Backstage\Laravel\OK\Enums\Status;
 
 it('can audit composer packages', function () {
     $result = (new ComposerAuditCheck)->run();

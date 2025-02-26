@@ -1,10 +1,10 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Audit;
+namespace Backstage\Laravel\OK\Checks\Audit;
 
 use Exception;
 use Illuminate\Support\Facades\Process;
-use Vormkracht10\LaravelOK\Checks\Base\Check;
+use Backstage\Laravel\OK\Checks\Base\Check;
 
 abstract class AuditCheck extends Check
 {

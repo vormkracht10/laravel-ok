@@ -1,8 +1,8 @@
 <?php
 
-namespace Vormkracht10\LaravelOK\Checks\Traits;
+namespace Backstage\Laravel\OK\Checks\Traits;
 
-use Vormkracht10\LaravelOK\Checks\Base\Result;
+use Backstage\Laravel\OK\Checks\Base\Result;
 
 trait ChecksDatabaseQueryCountResult
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\LaravelOK;
+namespace Backstage\Laravel\OK;
 
 use Illuminate\Support\Collection;
 
